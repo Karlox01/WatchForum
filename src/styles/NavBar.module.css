@@ -1,0 +1,32 @@
+.NavBar {
+    background-color: #301934;
+    border: 1px solid gold;
+    font-size: 25px;
+}
+
+.NavLinks {
+    color: #DAA520;
+    
+    font-weight: 100;
+}
+
+.NavLinks:hover {
+    color: #DAA520 ;
+}
+
+.FasLinks {
+    margin-right: 10px;
+    font-size: 30px;
+}
+
+.NavBarDropDown {
+    color: #DAA520;
+    background-color: #DAA520;
+}
+
+.centerBrand {
+    display: flex;
+    align-items: center;
+    width: 55%;
+    justify-content: flex-end;
+}

@@ -1,31 +1,32 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import profile from '../assets/profile.png'
+import styles from '../styles/NavBar.module.css';
 
 const NavBar = () => {
     return (
-        <Navbar style={{ background: '#301934' }} expand="md" fixed="top">
+        <Navbar className={styles.NavBar} expand="md" fixed="top">
             <Container>
-                <Navbar.Brand>
+                <Navbar.Brand className={styles.centerBrand}>
                     <img src={profile} alt="profile" height="50px" />
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav" style={{ color: 'green' }}>
-                    <Nav className="ms-auto">
+                </Navbar.Brand >
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className={styles.NavBarDropDown}/>
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="ms-auto text-center">
                         <Nav.Link 
-                        style={{ color: 'green' }}>
-                            <i className="fas fa-home"></i>
-                            HOME
+                        className={styles.NavLinks}>
+                            <i className="fas fa-home" style={{ marginRight: '10px'}}></i>
+                            Home
                         </Nav.Link>
                         <Nav.Link 
-                        style={{ color: 'green' }}>
-                            <i className="fas fa-sign-in-alt"></i>
-                            Sign in
+                        className={styles.NavLinks}>
+                            <i className="fas fa-sign-in-alt" style={{ marginRight: '10px'}}></i>
+                            Sign IN
                         </Nav.Link>
                         <Nav.Link 
-                        style={{ color: 'green' }}>
-                            <i className="fas fa-user-plus"></i>
-                            Sign up
+                        className={styles.NavLinks}>
+                            <i className="fas fa-user-plus" style={{ marginRight: '10px'}}></i>
+                            Sign UP
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
