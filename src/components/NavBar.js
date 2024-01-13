@@ -2,32 +2,42 @@ import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import profile from '../assets/profile.png'
 import styles from '../styles/NavBar.module.css';
+import { NavLink } from 'react-router-dom';
 
 const NavBar = () => {
     return (
         <Navbar className={styles.NavBar} expand="md" fixed="top">
             <Container>
-                <Navbar.Brand className={styles.centerBrand}>
-                    <img src={profile} alt="profile" height="50px" />
-                </Navbar.Brand >
-                <Navbar.Toggle aria-controls="basic-navbar-nav" className={styles.NavBarDropDown}/>
+                <NavLink to="/" className={styles.centerBrand}>
+                    <Navbar.Brand>
+                        <img src={profile} alt="profile" height="50px" />
+                    </Navbar.Brand>
+                </NavLink>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className={styles.NavBarDropDown} />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto text-center">
-                        <Nav.Link 
-                        className={styles.NavLinks}>
-                            <i className="fas fa-home" style={{ marginRight: '10px'}}></i>
+                        <NavLink 
+                            exact
+                            className={styles.NavLinks}
+                            activeClassName={styles.Active}
+                            to="/">
+                            <i className="fas fa-home" style={{ marginRight: '10px' }}></i>
                             Home
-                        </Nav.Link>
-                        <Nav.Link 
-                        className={styles.NavLinks}>
-                            <i className="fas fa-sign-in-alt" style={{ marginRight: '10px'}}></i>
+                        </NavLink>
+                        <NavLink 
+                            to="/signin"
+                            className={styles.NavLinks}
+                            activeClassName={styles.Active}>
+                            <i className="fas fa-sign-in-alt" style={{ marginRight: '10px' }}></i>
                             Sign IN
-                        </Nav.Link>
-                        <Nav.Link 
-                        className={styles.NavLinks}>
-                            <i className="fas fa-user-plus" style={{ marginRight: '10px'}}></i>
+                        </NavLink>
+                        <NavLink
+                            to="/signup"
+                            className={styles.NavLinks}
+                            activeClassName={styles.Active}>
+                            <i className="fas fa-user-plus" style={{ marginRight: '10px' }}></i>
                             Sign UP
-                        </Nav.Link>
+                        </NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

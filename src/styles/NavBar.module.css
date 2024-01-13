@@ -6,12 +6,14 @@
 
 .NavLinks {
     color: #DAA520;
-    
     font-weight: 100;
+    padding: 5px;
+    text-decoration: none;
 }
 
+
 .NavLinks:hover {
-    color: #DAA520 ;
+    color: #DAA520;
 }
 
 .FasLinks {
@@ -30,3 +32,17 @@
     width: 55%;
     justify-content: flex-end;
 }
+
+.Active i,
+.NavLinks.Active {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    /* Hide overflow content */
+    color: #f8f8f8;
+    background: linear-gradient(to right, transparent 50%, #f8f8f8 50%);
+    background-size: 200% 100%;
+    transition: background-position 2.5s ease, color 2.5s ease;
+}
+
+
