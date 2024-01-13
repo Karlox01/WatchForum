@@ -1,7 +1,7 @@
 .App {
     font-family: 'Bebas Neue', serif;
     min-height: 100vh;
-} 
+}
 
 .Main {
     padding-top: 81px;
@@ -9,7 +9,13 @@
 
 * {
     box-sizing: border-box;
-  }
+}
+
+.FillerImage {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
 
 a:hover i {
     color: #f8f8f8;

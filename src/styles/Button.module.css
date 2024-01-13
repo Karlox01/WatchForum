@@ -1,0 +1,43 @@
+/* Button.module.css */
+
+.Button {
+    font-size: 0.8rem;
+    align-self: center;
+    border-radius: 10px;
+    border-color: transparent;
+    padding: 1px 50px; /* Adjusted padding for a more prominent button */
+    margin-left: 2px;
+    margin-right: 2px;
+    min-width: 100px; /* Adjusted minimum width */
+    background-color: #301934; /* Adjusted color to match the navbar */
+    color: #DAA520; /* Adjusted text color to match the navbar */
+}
+
+.Button:hover {
+    opacity: 0.8;
+    border-color: transparent;
+    cursor: pointer;
+}
+
+.Button:hover:active {
+    background-color: #2ed9ff !important; /* Adjusted active color */
+}
+
+.Button:active {
+    background-color: #2ed9ff !important; /* Adjusted active color */
+}
+
+.Button:focus {
+    background-color: #2ed9ff; /* Adjusted focus color */
+}
+
+.Wide {
+    padding: 10px 50px;
+    width: 100%;
+}
+
+.Bright {
+    background-color: #301934;
+    color: #DAA520;
+    font-size: 20px;
+}

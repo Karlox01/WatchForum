@@ -1,0 +1,111 @@
+/* SignInUpForm.module.css */
+
+.Row {
+    height: calc(100vh - 81px);
+}
+
+.Container {
+    padding: 30px 10px;
+    background: linear-gradient(to right, #301934 50%, transparent 50%);
+    overflow: hidden; /* Ensure gradient doesn't overflow */
+    position: relative; /* Add relative positioning */
+}
+
+.FormGroup {
+    margin-bottom: 15px; /* Adjust the margin as needed */
+}
+
+.Header {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 56px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #DAA520; /* Adjusted color */
+    position: relative;
+    z-index: 1; /* Ensures the text stays above the gradient */
+}
+
+.Header::before,
+.Header::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 50%; /* Adjusted width */
+    background: #301934; /* Adjusted color */
+    z-index: -1; /* Puts the pseudo-elements behind the text */
+}
+
+.Input {
+    background: #301934;
+    border: 1px solid #DAA520;
+    box-sizing: border-box;
+    border-radius: 2px;
+    color: #DAA520;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+}
+
+.Input::placeholder {
+    color: #DAA520;
+    opacity: 0.7;
+    /* Centering styles */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.Header::before {
+    top: 0;
+    left: 0;
+}
+
+.Header::after {
+    top: 0;
+    right: 0;
+}
+
+.Link {
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    margin: auto;
+}
+
+.Link span {
+    display: inline-block;
+    font-size: 30px; /* Adjusted font size to match the button */
+    padding: 0 5px; /* Adjusted padding for a more prominent button */
+    margin-left: 5px;
+    margin-right: 2px;
+    min-width: 20px; /* Adjusted minimum width */
+    color: #DAA520; /* Adjusted text color to match the navbar */
+    text-align: center;
+}
+
+.Link span:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.Link span:active {
+    background-color: #2ed9ff; /* Adjusted active color */
+    border-color: transparent;
+}
+
+.Link span:focus {
+    background-color: #2ed9ff; /* Adjusted focus color */
+    outline: none; /* Remove default focus outline */
+}
+
+.SignInCol {
+    height: 320px;
+}
+
+.SignUpCol {
+    height: 375px;
+}
