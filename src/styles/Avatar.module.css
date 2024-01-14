@@ -1,0 +1,19 @@
+.AvatarContainer {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.Avatar {
+    border-radius: 50%;
+    margin-right: 8px;
+    object-fit: cover;
+    text-decoration: none;
+}
+
+.AvatarText {
+    color: #DAA520;
+    font-weight: 100;
+    text-decoration: none !important; /* Add !important to override any conflicting styles */
+    margin-top: 7px;
+}

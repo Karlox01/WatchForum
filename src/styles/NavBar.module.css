@@ -2,6 +2,7 @@
     background-color: #301934;
     border: 1px solid gold;
     font-size: 25px;
+    width: 100%;
 }
 
 .NavLinks {
@@ -29,7 +30,7 @@
 .centerBrand {
     display: flex;
     align-items: center;
-    width: 55%;
+    width: 35%;
     justify-content: flex-end;
 }
 
