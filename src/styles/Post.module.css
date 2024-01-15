@@ -1,0 +1,79 @@
+.Post {
+    background-color: #ffffff;
+    border: 1px solid #dadadf;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.Post figure,
+h5 {
+    margin: 0 0;
+}
+
+.AvatarDetails {
+    text-decoration: none;
+    color: #f85032;
+    font-weight: 100;
+    font-size: 15px;
+}
+
+.Heart {
+    color: #f85032;
+}
+
+.Heart:hover {
+    color: #2142b2;
+}
+
+.HeartOutline:hover {
+    color: #f85032;
+}
+
+.PostImage {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.PostLink {
+    display: block;
+    text-align: center;
+}
+
+.AvatarLink {
+    text-decoration: none;
+}
+
+.PostBar {
+    margin-top: 10px;
+}
+
+.LikeIcon {
+    cursor: pointer;
+}
+
+.LikeIcon:hover {
+    color: #2142b2;
+}
+
+/* Additional properties for the title */
+.Title {
+    padding: 8px; /* Adjust the padding as needed */
+    margin-bottom: 8px; /* Adjust the margin as needed */
+    border-radius: 2px;
+}
+
+.Content {
+    min-height: 500px;
+    background-color: #dadadf;
+    text-align: left;
+    border-radius: 10px;
+    padding: 16px; /* Adjust the padding as needed */
+}
+
+/* Additional property for the content compartment */
+.ContentContainer {
+    padding: 16px; /* Adjust the padding as needed */
+}
