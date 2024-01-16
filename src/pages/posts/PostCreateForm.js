@@ -30,11 +30,20 @@ function PostCreateForm() {
     const imageInput = useRef(null);
     const history = useHistory();
 
-    const handleChange = (value) => {
-        setPostData({
-            ...postData,
-            content: value,
-        });
+    const handleChange = (event, value) => {
+        if (event && event.target && event.target.name) {
+            // Regular input change
+            setPostData({
+                ...postData,
+                [event.target.name]: event.target.value,
+            });
+        } else {
+            // ReactQuill editor change
+            setPostData({
+                ...postData,
+                content: value,
+            });
+        }
     };
 
     const handleChangeImage = (event) => {
@@ -81,7 +90,7 @@ function PostCreateForm() {
                                 type="text"
                                 name="title"
                                 value={title}
-                                onChange={handleChange}
+                                onChange={(e) => handleChange(e)}
                             />
                         </Form.Group>
                         {errors?.title?.map((message, idx) => (
@@ -94,8 +103,21 @@ function PostCreateForm() {
                             <ReactQuill
                                 className={appStyles.quill}
                                 value={content}
-                                onChange={handleChange}
-                                modules={PostCreateForm.modules}
+                                onChange={(value) => handleChange(null, value)}
+                                modules={{
+                                    toolbar: [
+                                        [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+                                        [{ size: [] }],
+                                        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                                        [{ 'color': [] }, { 'background': [] }],
+                                        ['link', 'image', 'video'],
+                                        ['clean'],
+                                    ],
+                                    clipboard: {
+                                        matchVisual: false,
+                                    },
+                                }}
+                                formats={null}
                             />
                         </Form.Group>
                         {errors?.content?.map((message, idx) => (
@@ -153,16 +175,5 @@ function PostCreateForm() {
         </Form>
     );
 }
-
-PostCreateForm.modules = {
-    toolbar: [
-        [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
-        [{ size: [] }],
-        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [{ 'color': [] }, { 'background': [] }],
-        ['link', 'image', 'video'],
-        ['clean'],
-    ],
-};
 
 export default PostCreateForm;

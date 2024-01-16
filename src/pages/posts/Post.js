@@ -7,8 +7,8 @@ import { Link, useHistory } from 'react-router-dom';
 import Avatar from '../../components/Avatar';
 import { axiosRes } from '../../api/axiosDefaults';
 import { MoreDropdown } from '../../components/MoreDropdown';
-import moment from 'moment';
-import ProfileList from '../ProfileList/ProfileList';
+import ReactHtmlParser from 'react-html-parser';
+
 
 const Post = (props) => {
     const {
@@ -27,7 +27,6 @@ const Post = (props) => {
         postPage,
         setPosts,
         posts_count,
-        user_joined_at,
     } = props;
 
     const currentUser = useCurrentUser();
@@ -74,16 +73,15 @@ const Post = (props) => {
             console.log(err);
         }
     };
-    
+
     return (
         <Card className={styles.Post}>
             <Row>
-                <Col xs={12} md={2} className="pt-2">  
+                <Col xs={12} md={2} className="pt-2">
                     <Link to={`/profiles/${profile_id}`} className={styles.AvatarLink}>
-                        <Avatar src={profile_image} height={100}  />
+                        <Avatar src={profile_image} height={100} />
                         <div className={styles.AvatarDetails}>
                             <span>{owner}</span>
-                            <p>User Joined At: {user_joined_at}</p>
                         </div>
                     </Link>
                 </Col>
@@ -91,7 +89,7 @@ const Post = (props) => {
                     <Card.Body>
                         {title && <Card.Title className={`text-center ${styles.Title}`}>{title}</Card.Title>}
                         <div className={`${styles.ContentContainer} ${styles.Content}`}>
-                            {content && <Card.Text>{content}</Card.Text>}
+                            {content && ReactHtmlParser(content)}
                         </div>
                         <div className={styles.PostBar}>
                             {is_owner ? (
