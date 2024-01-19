@@ -6,10 +6,7 @@
     text-align: center;
 }
 
-.Post figure,
-h5 {
-    margin: 0 0;
-}
+
 
 .AvatarDetails {
     text-decoration: none;
@@ -37,9 +34,33 @@ h5 {
     display: block;
 }
 
-.PostLink {
-    display: block;
+.PostTitleLink {
+    display: block; /* Use flexbox */
     text-align: center;
+    color: #f85032;
+    text-decoration: none;
+}
+
+
+.PostTitleLinkOnPost {
+    display: flex; /* Use flexbox */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Space between items (for Card.Title and MoreDropdown) */
+    text-align: center;
+    color: #f85032;
+    text-decoration: none;
+}
+
+.PostLink {
+    text-align: center;
+    color: #f85032;
+    text-decoration: none;
+    font-size: 35px;
+}
+
+.PostLinkOnPost {
+    text-decoration: none;
+    flex: 0 0 90%;
 }
 
 .AvatarLink {
@@ -63,6 +84,17 @@ h5 {
     padding: 8px; /* Adjust the padding as needed */
     margin-bottom: 8px; /* Adjust the margin as needed */
     border-radius: 2px;
+    display: block;
+    font-size: 25px;
+    color: #f85032;
+    font-weight: 400;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: uppercase;
+}
+
+
+.ContentContainer {
+    padding: 16px; /* Adjust the padding as needed */
 }
 
 .Content {
@@ -73,7 +105,9 @@ h5 {
     padding: 16px; /* Adjust the padding as needed */
 }
 
-/* Additional property for the content compartment */
-.ContentContainer {
-    padding: 16px; /* Adjust the padding as needed */
+/* Use a more specific selector for the nested content */
+.ContentContainer > * {
+    font-size: 15px !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+

@@ -2,15 +2,13 @@ import React from 'react';
 import styles from '../../styles/Post.module.css';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { Card, OverlayTrigger, Tooltip, Row, Col } from 'react-bootstrap';
-import Media from 'react-bootstrap/Media';
-import { Link, useHistory } from 'react-router-dom';
 import Avatar from '../../components/Avatar';
 import { axiosRes } from '../../api/axiosDefaults';
 import { MoreDropdown } from '../../components/MoreDropdown';
 import ReactHtmlParser from 'react-html-parser';
+import { useHistory, Link } from 'react-router-dom';
 
-
-const Post = (props) => {
+const Post = ({ titleOnly, setPosts, ...props }) => {
     const {
         id,
         owner,
@@ -25,7 +23,6 @@ const Post = (props) => {
         updated_at,
         created_at,
         postPage,
-        setPosts,
         posts_count,
     } = props;
 
@@ -49,12 +46,13 @@ const Post = (props) => {
     const handleLike = async () => {
         try {
             const { data } = await axiosRes.post('/likes/', { post: id });
-            setPosts((prevPosts) => ({
-                ...prevPosts,
-                results: prevPosts.results.map((post) =>
+            setPosts((prevPosts) => {
+                const updatedResults = prevPosts.results.map((post) =>
                     post.id === id ? { ...post, likes_count: post.likes_count + 1, like_id: data.id } : post
-                ),
-            }));
+                );
+
+                return { ...prevPosts, results: updatedResults };
+            });
         } catch (err) {
             console.log(err);
         }
@@ -63,12 +61,13 @@ const Post = (props) => {
     const handleUnlike = async () => {
         try {
             await axiosRes.delete(`/likes/${like_id}/`);
-            setPosts((prevPosts) => ({
-                ...prevPosts,
-                results: prevPosts.results.map((post) =>
+            setPosts((prevPosts) => {
+                const updatedResults = prevPosts.results.map((post) =>
                     post.id === id ? { ...post, likes_count: post.likes_count - 1, like_id: null } : post
-                ),
-            }));
+                );
+
+                return { ...prevPosts, results: updatedResults };
+            });
         } catch (err) {
             console.log(err);
         }
@@ -87,34 +86,87 @@ const Post = (props) => {
                 </Col>
                 <Col xs={12} md={10}>
                     <Card.Body>
-                        {title && <Card.Title className={`text-center ${styles.Title}`}>{title}</Card.Title>}
-                        <div className={`${styles.ContentContainer} ${styles.Content}`}>
-                            {content && ReactHtmlParser(content)}
-                        </div>
-                        <div className={styles.PostBar}>
-                            {is_owner ? (
-                                <OverlayTrigger placement="top" overlay={<Tooltip>You can't like your own post!</Tooltip>}>
-                                    <i className={`far fa-heart ${styles.LikeIcon}`} />
-                                </OverlayTrigger>
-                            ) : like_id ? (
-                                <span onClick={handleUnlike}>
-                                    <i className={`fas fa-heart ${styles.Heart}`} />
-                                </span>
-                            ) : currentUser ? (
-                                <span onClick={handleLike}>
-                                    <i className={`far fa-heart ${styles.HeartOutline}`} />
-                                </span>
-                            ) : (
-                                <OverlayTrigger placement="top" overlay={<Tooltip>Log in to like posts</Tooltip>}>
-                                    <i className={`far fa-heart ${styles.LikeIcon}`} />
-                                </OverlayTrigger>
-                            )}
-                            {likes_count}
-                            <Link to={`/posts/${id}`} className={styles.LikeIcon}>
-                                <i className={`far fa-comments ${styles.LikeIcon}`} />
-                                {comments_count}
-                            </Link>
-                        </div>
+                        {titleOnly ? (
+                            <div className={styles.PostTitleLink}>
+                                <Card.Title className={`text-center ${styles.Title}`}>
+                                    <Link to={`/posts/${id}`} className={styles.PostLink}>
+                                        {title}
+                                    </Link>
+                                </Card.Title>
+                                <div className={styles.PostBar}>
+                                    {is_owner ? (
+                                        <OverlayTrigger
+                                            placement="top"
+                                            overlay={<Tooltip>You can't like your own post!</Tooltip>}
+                                        >
+                                            <i className={`far fa-heart ${styles.LikeIcon}`} />
+                                        </OverlayTrigger>
+                                    ) : like_id ? (
+                                        <span onClick={handleUnlike}>
+                                            <i className={`fas fa-heart ${styles.Heart}`} />
+                                        </span>
+                                    ) : currentUser ? (
+                                        <span onClick={handleLike}>
+                                            <i className={`far fa-heart ${styles.HeartOutline}`} />
+                                        </span>
+                                    ) : (
+                                        <OverlayTrigger
+                                            placement="top"
+                                            overlay={<Tooltip>Log in to like posts</Tooltip>}
+                                        >
+                                            <i className={`far fa-heart ${styles.LikeIcon}`} />
+                                        </OverlayTrigger>
+                                    )}
+                                    {likes_count}
+                                    <span className={styles.LikeIcon} onClick={handleLike}>
+                                        <i className={`far fa-comments ${styles.LikeIcon}`} />
+                                        {comments_count}
+                                    </span>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <div className={styles.PostTitleLinkOnPost}>
+                                    <Link to={`/posts/${id}`} className={styles.PostLinkOnPost}>
+                                        <Card.Title className={`text-center ${styles.Title}`}>{title}</Card.Title>
+                                    </Link>
+                                    <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete}/>
+                                </div>
+                                <div className={`${styles.ContentContainer} ${styles.Content}`}>
+                                    {content && ReactHtmlParser(content)}
+                                </div>
+                                <div className={styles.PostBar}>
+                                    {is_owner ? (
+                                        <OverlayTrigger
+                                            placement="top"
+                                            overlay={<Tooltip>You can't like your own post!</Tooltip>}
+                                        >
+                                            <i className={`far fa-heart ${styles.LikeIcon}`} />
+                                        </OverlayTrigger>
+                                    ) : like_id ? (
+                                        <span onClick={handleUnlike}>
+                                            <i className={`fas fa-heart ${styles.Heart}`} />
+                                        </span>
+                                    ) : currentUser ? (
+                                        <span onClick={handleLike}>
+                                            <i className={`far fa-heart ${styles.HeartOutline}`} />
+                                        </span>
+                                    ) : (
+                                        <OverlayTrigger
+                                            placement="top"
+                                            overlay={<Tooltip>Log in to like posts</Tooltip>}
+                                        >
+                                            <i className={`far fa-heart ${styles.LikeIcon}`} />
+                                        </OverlayTrigger>
+                                    )}
+                                    {likes_count}
+                                    <span className={styles.LikeIcon} onClick={handleLike}>
+                                        <i className={`far fa-comments ${styles.LikeIcon}`} />
+                                        {comments_count}
+                                    </span>
+                                </div>
+                            </>
+                        )}
                     </Card.Body>
                 </Col>
             </Row>

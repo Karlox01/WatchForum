@@ -17,6 +17,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 // import PopularProfiles from "../profiles/PopularProfiles";
 
+// ... (previous imports)
+
 function PostsPage({ message, filter = "" }) {
     const [posts, setPosts] = useState({ results: [] });
     const [hasLoaded, setHasLoaded] = useState(false);
@@ -46,17 +48,15 @@ function PostsPage({ message, filter = "" }) {
     return (
         <Row className="h-100">
             <Col className="py-2 p-0 p-lg-2" lg={8}>
-                {/* <PopularProfiles mobile /> */}
                 <i className={`fas fa-search ${styles.SearchIcon}`} />
-                <form className={styles.SearchBar}
-                    onSubmit={(event) => event.preventDefault()}
-                >
+                <form className={styles.SearchBar} onSubmit={(event) => event.preventDefault()}>
                     <Form.Control
                         value={query}
                         onChange={(event) => setQuery(event.target.value)}
                         type="text"
                         className="mr-sm-2"
-                        placeholder="Search posts" />
+                        placeholder="Search posts"
+                    />
                 </form>
 
                 {hasLoaded ? (
@@ -65,7 +65,7 @@ function PostsPage({ message, filter = "" }) {
                             <InfiniteScroll
                                 children={
                                     posts.results.map((post) => (
-                                        <Post key={post.id} {...post} setPosts={setPosts} />
+                                        <Post key={post.id} titleOnly setPosts={setPosts} {...post} />
                                     ))
                                 }
                                 dataLength={posts.results.length}
@@ -73,9 +73,10 @@ function PostsPage({ message, filter = "" }) {
                                 hasMore={!!posts.next}
                                 next={() => fetchMoreData(posts, setPosts)}
                             />
-                        ) : (<Container className={appStyles.Content}>
-                            <Asset src={NoResults} message={message} />
-                        </Container>
+                        ) : (
+                            <Container className={appStyles.Content}>
+                                <Asset src={NoResults} message={message} />
+                            </Container>
                         )}
                     </>
                 ) : (
