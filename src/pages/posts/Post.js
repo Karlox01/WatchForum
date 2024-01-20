@@ -130,7 +130,9 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                                     <Link to={`/posts/${id}`} className={styles.PostLinkOnPost}>
                                         <Card.Title className={`text-center ${styles.Title}`}>{title}</Card.Title>
                                     </Link>
+                                    {is_owner && (
                                     <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete}/>
+                                    )}
                                 </div>
                                 <div className={`${styles.ContentContainer} ${styles.Content}`}>
                                     {content && ReactHtmlParser(content)}
