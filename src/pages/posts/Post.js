@@ -22,8 +22,6 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
         image,
         updated_at,
         created_at,
-        postPage,
-        posts_count,
     } = props;
 
     const currentUser = useCurrentUser();
@@ -45,14 +43,15 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
 
     const handleLike = async () => {
         try {
-            const { data } = await axiosRes.post('/likes/', { post: id });
-            setPosts((prevPosts) => {
-                const updatedResults = prevPosts.results.map((post) =>
-                    post.id === id ? { ...post, likes_count: post.likes_count + 1, like_id: data.id } : post
-                );
-
-                return { ...prevPosts, results: updatedResults };
-            });
+            const { data } = await axiosRes.post('/likes/', { post: id })
+            setPosts((prevPosts) => ({
+                ...prevPosts,
+                results: prevPosts.results.map((post) => {
+                    return post.id === id
+                        ? { ...post, likes_count: post.likes_count + 1, like_id: data.id }
+                        : post;
+                }),
+            }));
         } catch (err) {
             console.log(err);
         }
@@ -61,13 +60,14 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
     const handleUnlike = async () => {
         try {
             await axiosRes.delete(`/likes/${like_id}/`);
-            setPosts((prevPosts) => {
-                const updatedResults = prevPosts.results.map((post) =>
-                    post.id === id ? { ...post, likes_count: post.likes_count - 1, like_id: null } : post
-                );
-
-                return { ...prevPosts, results: updatedResults };
-            });
+            setPosts((prevPosts) => ({
+                ...prevPosts,
+                results: prevPosts.results.map((post) => {
+                    return post.id === id
+                        ? { ...post, likes_count: post.likes_count - 1, like_id: null }
+                        : post;
+                }),
+            }));
         } catch (err) {
             console.log(err);
         }
@@ -118,7 +118,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                                         </OverlayTrigger>
                                     )}
                                     {likes_count}
-                                    <span className={styles.LikeIcon} onClick={handleLike}>
+                                    <span className={styles.LikeIcon}>
                                         <i className={`far fa-comments ${styles.LikeIcon}`} />
                                         {comments_count}
                                     </span>
@@ -131,7 +131,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                                         <Card.Title className={`text-center ${styles.Title}`}>{title}</Card.Title>
                                     </Link>
                                     {is_owner && (
-                                    <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete}/>
+                                        <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
                                     )}
                                 </div>
                                 <div className={`${styles.ContentContainer} ${styles.Content}`}>
@@ -162,7 +162,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                                         </OverlayTrigger>
                                     )}
                                     {likes_count}
-                                    <span className={styles.LikeIcon} onClick={handleLike}>
+                                    <span className={styles.LikeIcon}>
                                         <i className={`far fa-comments ${styles.LikeIcon}`} />
                                         {comments_count}
                                     </span>
