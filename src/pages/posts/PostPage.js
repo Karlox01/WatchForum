@@ -9,6 +9,12 @@ import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Post from "./Post";
+import CommentCreateForm from "../comments/CommentCreateForm";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Comment from "../comments/Comment";
+import Asset from "../../components/Asset";
+import { fetchMoreData } from "../../utils/utils";
+
 
 function PostPage() {
     const { id } = useParams();
@@ -39,9 +45,39 @@ function PostPage() {
         <Row className="h-100">
             <Col className="py-2 p-0 p-lg-2" lg={8}>
                 <p>Popular profiles for mobile</p>
-                <Post {...post.results[0]}/>
+                <Post {...post.results[0]} />
                 <Container className={appStyles.Content}>
-                    Comments
+                    {currentUser ? (
+                        <CommentCreateForm
+                            profile_id={currentUser.profile_id}
+                            profileImage={profile_image}
+                            post={id}
+                            setPost={setPost}
+                            setComments={setComments}
+                        />
+                    ) : comments.results.length ? (
+                        "Comments"
+                    ) : null}
+                    {comments.results.length ? (
+                        <InfiniteScroll
+                            children={comments.results.map((comment) => (
+                                <Comment
+                                    key={comment.id}
+                                    {...comment}
+                                    setPost={setPost}
+                                    setComments={setComments}
+                                />
+                            ))}
+                            dataLength={comments.results.length}
+                            loader={<Asset spinner />}
+                            hasMore={!!comments.next}
+                            next={() => fetchMoreData(comments, setComments)}
+                        />
+                    ) : currentUser ? (
+                        <span> No comments yet, Be the first to comment!</span>
+                    ) : (
+                        <span> No comments yet!</span>
+                    )}
                 </Container>
             </Col>
             <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">

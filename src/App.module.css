@@ -46,3 +46,11 @@ i:hover {
     transition: color ease-in-out 0.3s;
     color: #f8f8f8;
 }
+
+
+
+@media (max-width: 767px) {
+    .Main {
+        padding-top: 200px;
+    }
+}

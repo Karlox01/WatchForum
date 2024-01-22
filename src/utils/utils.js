@@ -66,8 +66,6 @@ export const shouldRefreshToken = () => {
   }
 
 
-export const removeTokenTimestamp = () => {
+  export const removeTokenTimestamp = () => {
     localStorage.removeItem('refreshTokenTimestamp')
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-}
+  }
