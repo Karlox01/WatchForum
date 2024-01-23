@@ -7,10 +7,16 @@ import appStyles from "../../App.module.css";
 
 import { Form, Button, Image, Col, Row, Container, Alert } from "react-bootstrap";
 import axios from "axios";
-import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { useRedirect } from "../../hooks/useRedirect";
+import { setTokenTimestamp } from "../../utils/utils";
 
 const SignInForm = () => {
     const setCurrentUser = useSetCurrentUser();
+    const currentUser = useCurrentUser();
+
+    // Use the redirect hook conditionally
+    useRedirect(currentUser ? "loggedIn" : null);
 
 
     const [signInData, setSignInData] = useState({
@@ -28,7 +34,8 @@ const SignInForm = () => {
         try {
             const { data } = await axios.post("/dj-rest-auth/login/", signInData);
             setCurrentUser(data.user)
-            history.push("/");
+            setTokenTimestamp(data)
+            history.goBack();
         } catch (err) {
             setErrors(err.response?.data);
         }

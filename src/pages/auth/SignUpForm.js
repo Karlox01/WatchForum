@@ -7,20 +7,27 @@ import appStyles from "../../App.module.css";
 
 import { Form, Button, Image, Col, Row, Container, Alert } from "react-bootstrap";
 import axios from "axios";
+import { useRedirect } from "../../hooks/useRedirect";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 
 const SignUpForm = () => {
+
+    const currentUser = useCurrentUser();
+    const history = useHistory();
+
+    // Redirect away from SignUpForm if the user is already logged in
+    useRedirect(currentUser ? "loggedIn" : null);
+
+
     const [signUpData, setSignUpData] = useState({
         username: '',
         password1: '',
         password2: ''
     })
     const { username, password1, password2 } = signUpData;
-
-
     const [errors, setErrors] = useState({});
 
-    const history = useHistory();
 
     const handleChange = (event) => {
         setSignUpData({

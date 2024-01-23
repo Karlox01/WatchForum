@@ -61,15 +61,16 @@ function ProfilePage() {
 
     const mainProfile = (
         <>
-            {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
+            
             <Row noGutters className="px-3 text-center">
                 <Col lg={3} className="text-lg-left">
                     <Image
                         className={styles.ProfileImage}
                         roundedCircle
                         src={profile?.image}
-                    />
+                    /> 
                 </Col>
+                
                 <Col lg={6}>
                     <h3 className="m-2">{profile?.owner}</h3>
                     <Row className="justify-content-center no-gutters">
@@ -85,6 +86,7 @@ function ProfilePage() {
                             <div>{profile?.following_count}</div>
                             <div>following</div>
                         </Col>
+                        {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
                     </Row>
                 </Col>
                 <Col lg={3} className="text-lg-right">

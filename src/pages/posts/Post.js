@@ -19,7 +19,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
         like_id,
         title,
         content,
-        image,
+        images,
         updated_at,
         created_at,
     } = props;
@@ -72,7 +72,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
             console.log(err);
         }
     };
-
+    console.log(images);
     return (
         <Card className={styles.Post}>
             <Row>
@@ -136,7 +136,21 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                                 </div>
                                 <div className={`${styles.ContentContainer} ${styles.Content}`}>
                                     {content && ReactHtmlParser(content)}
+                                    {images && images.length > 0 && (
+                                        <div>
+                                            <Row>
+                                                {images.map((image, index) => (
+                                                    <Col key={index} xs={12} md={6} lg={4}>
+                                                        <Link to={`/posts/${id}`} className={styles.ImageLink}>
+                                                            <Card.Img src={image.image} alt={title} className={styles.ImagePost} />
+                                                        </Link>
+                                                    </Col>
+                                                ))}
+                                            </Row>
+                                        </div>
+                                    )}
                                 </div>
+
                                 <div className={styles.PostBar}>
                                     {is_owner ? (
                                         <OverlayTrigger
@@ -153,6 +167,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                                         <span onClick={handleLike}>
                                             <i className={`far fa-heart ${styles.HeartOutline}`} />
                                         </span>
+
                                     ) : (
                                         <OverlayTrigger
                                             placement="top"

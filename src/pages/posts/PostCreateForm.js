@@ -24,9 +24,9 @@ function PostCreateForm() {
     const [postData, setPostData] = useState({
         title: "",
         content: "",
-        image: "",
+        images: [],  // Change from 'image' to 'images' as an array for multiple images
     });
-    const { title, content, image } = postData;
+    const { title, content, images } = postData;
     const imageInput = useRef(null);
     const history = useHistory();
 
@@ -46,12 +46,12 @@ function PostCreateForm() {
         }
     };
 
-    const handleChangeImage = (event) => {
+    const handleChangeImages = (event) => {
         if (event.target.files.length) {
-            URL.revokeObjectURL(image);
+            const selectedImages = Array.from(event.target.files);
             setPostData({
                 ...postData,
-                image: URL.createObjectURL(event.target.files[0]),
+                images: selectedImages,
             });
         }
     };
@@ -62,7 +62,11 @@ function PostCreateForm() {
 
         formData.append("title", title);
         formData.append("content", content);
-        formData.append("image", imageInput.current.files[0]);
+
+        // Append each image to the formData
+        for (let i = 0; i < images.length; i++) {
+            formData.append('images', images[i]);
+        }
 
         try {
             const { data } = await axiosReq.post("/posts/", formData);
@@ -129,26 +133,31 @@ function PostCreateForm() {
                 </Row>
                 <Row className="justify-content-center mt-4">
                     <Col xs={12} md={8} className="text-center">
-                        {image ? (
-                            <figure>
-                                <Image className={appStyles.Image} src={image} rounded />
-                            </figure>
+                        {images.length > 0 ? (
+                            <>
+                                {images.map((image, index) => (
+                                    <figure key={index}>
+                                        <Image className={appStyles.Image} src={URL.createObjectURL(image)} rounded />
+                                    </figure>
+                                ))}
+                            </>
                         ) : (
                             <Button
                                 className={`${btnStyles.Button} ${btnStyles.Bright}`}
                                 onClick={openFileInput}
                             >
-                                Upload Image
+                                Upload Images
                             </Button>
                         )}
                         <Form.File
                             id="image-upload"
                             accept="image/*"
-                            onChange={handleChangeImage}
+                            multiple={true}  // Allow multiple files to be selected
+                            onChange={handleChangeImages}
                             ref={imageInput}
                             className="d-none"
                         />
-                        {errors?.image?.map((message, idx) => (
+                        {errors?.images?.map((message, idx) => (
                             <Alert variant="warning" key={idx}>
                                 {message}
                             </Alert>
