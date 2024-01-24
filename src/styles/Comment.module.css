@@ -1,10 +1,93 @@
+/* Comment.module.css */
+
+.Comment {
+    background-color: #ffffff;
+    border: 1px solid #dadadf;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    text-align: left;
+    /* Align the text to the left */
+}
+
 .Owner {
     font-weight: bold;
     color: #2142b2;
     margin-right: 8px;
+    font-size: 20px;
+}
+
+.AvatarLink {
+    text-decoration: none;
+}
+
+.Avatar {
+    width: 100px;
+    /* Adjust the width as needed */
+    height: 100px;
+    /* Adjust the height as needed */
+}
+
+.OwnerDateMoreContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.OwnerDateContainer {
+    display: flex;
+    align-items: center;
 }
 
 .Date {
-    font-weight: lighter;
+    font-weight: 100;
     color: #c1c1c5;
+    font-size: 10px;
 }
+
+.MoreDropdownContainer {
+    margin-left: 10px;
+}
+
+.ContentContainer {
+    padding: 16px;
+}
+
+.Content {
+    background-color: #dadadf;
+    text-align: left;
+    border-radius: 10px;
+    padding: 16px;
+    min-height: 100px;
+    /* Adjust the minimum height as needed */
+}
+
+.LikeIcon {
+    cursor: pointer;
+}
+
+.LikeIcon:hover {
+    color: #2142b2;
+}
+
+.commentcontent {
+    padding: 28px;
+    margin-left: 10px;
+}
+
+.commentbox {
+    background-color: #c1c1c5;
+    text-align: justify;
+    min-height: 50px;
+    border-radius: 10px;
+    font-weight: 100;
+    padding: 20px;
+}
+
+.commentbox img {
+    max-width: 350px; /* Set the maximum width for images within the comment box */
+    max-height: 350px; /* Set the maximum height for images within the comment box */
+    object-fit: contain; /* Ensure the image is contained within its box without being cut */
+    display: block; /* Ensure images don't overflow outside the comment box */
+    margin: auto; /* Center the images horizontally within the comment box */
+  }

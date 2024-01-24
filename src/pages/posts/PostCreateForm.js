@@ -24,7 +24,7 @@ function PostCreateForm() {
     const [postData, setPostData] = useState({
         title: "",
         content: "",
-        images: [],  // Change from 'image' to 'images' as an array for multiple images
+        images: [], 
     });
     const { title, content, images } = postData;
     const imageInput = useRef(null);

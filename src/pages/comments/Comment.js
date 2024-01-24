@@ -1,58 +1,68 @@
-import React, { useState } from 'react'
-import styles from '../../styles/Comment.module.css'
-import Avatar from '../../components/Avatar'
-import { Media } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useCurrentUser } from '../../contexts/CurrentUserContext'
-import { MoreDropdown } from '../../components/MoreDropdown'
-import { axiosRes } from '../../api/axiosDefaults'
-import CommentEditForm from './CommentEditForm'
+// Comment.js
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Card, Media } from 'react-bootstrap';
+import Avatar from '../../components/Avatar';
+import { MoreDropdown } from '../../components/MoreDropdown';
+import { axiosRes } from '../../api/axiosDefaults';
+import CommentEditForm from './CommentEditForm';
+import styles from '../../styles/Comment.module.css';
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
 
-const Comments = (props) => {
+const Comment = (props) => {
   const {
     profile_id,
     profile_image,
     owner,
     updated_at,
     content,
+    images,
     id,
     setPost,
-    setComments
-  } = props
+    setComments,
+  } = props;
 
   const [showEditForm, setShowEditForm] = useState(false);
-  const currentUser = useCurrentUser()
+  const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
   const handleDelete = async () => {
     try {
-      await axiosRes.delete(`/comments/${id}/`)
-      setPost(prevPost => ({
-        results: [{
-          ...prevPost.results[0],
-          comments_count: prevPost.results[0].comments_count - 1
-        }]
-      }))
+      await axiosRes.delete(`/comments/${id}/`);
+      setPost((prevPost) => ({
+        results: [
+          {
+            ...prevPost.results[0],
+            comments_count: prevPost.results[0].comments_count - 1,
+          },
+        ],
+      }));
 
-      setComments(prevComments => ({
+      setComments((prevComments) => ({
         ...prevComments,
-        results: prevComments.results.filter(comment => comment.id !== id),
-      }))
+        results: prevComments.results.filter((comment) => comment.id !== id),
+      }));
     } catch (err) {
-
+      console.log(err);
     }
-  }
+  };
 
   return (
-    <div>
-      <hr />
+    <Card className={styles.Comment}>
       <Media>
-        <Link to={`/profiles/${profile_id}`}>
-          <Avatar src={profile_image} />
-        </Link>
-        <Media.Body className="align-self-center ml-2">
-          <span className={styles.Owner}>{owner}</span>
-          <span className={styles.Date}>{updated_at}</span>
+        <Media.Body className={styles.commentcontent}>
+          <div className={styles.OwnerDateContainer}>
+            <Link to={`/profiles/${profile_id}`} className={styles.Avatar}>
+              <Avatar src={profile_image} />
+            </Link>
+            <span className={styles.Owner}>{owner}</span>
+            <span className={styles.Date}>Last commented {updated_at}</span>
+            {is_owner && !showEditForm && (
+              <div className={styles.MoreDropdownContainer}>
+                <MoreDropdown handleEdit={() => setShowEditForm(true)} handleDelete={handleDelete} />
+              </div>
+            )}
+          </div>
           {showEditForm ? (
             <CommentEditForm
               id={id}
@@ -63,15 +73,21 @@ const Comments = (props) => {
               setShowEditForm={setShowEditForm}
             />
           ) : (
-            <p>{content}</p>
+            <>
+              <p className={styles.commentbox}>{content}
+                {images && images.length > 0 && (
+                  <div className={styles.commentImages}>
+                    {images.map((image) => (
+                      <img key={image.id} src={image.image} alt={`comment-${id}-image`} className={styles.commentImage} />
+                    ))}
+                  </div>
+                )}</p>
+            </>
           )}
         </Media.Body>
-        {is_owner && !showEditForm && (
-          <MoreDropdown handleEdit={() => setShowEditForm(true)} handleDelete={handleDelete} />
-        )}
       </Media>
-    </div>
-  )
-}
+    </Card>
+  );
+};
 
-export default Comments
+export default Comment;
