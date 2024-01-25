@@ -1,102 +1,138 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# WatchForum
 
-Welcome,
+![Watches By Karl Logo](https://res.cloudinary.com/dzchfcdfl/image/upload/v1706223406/Starting_Page_gzhvqx.png)
 
-This is the Code Institute student template for React apps on the Codeanywhere IDE. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.  
-DO NOT use this template if you are using the Gitpod IDE. Use the following command instead:  
-`npx create-react-app . --template git+https://github.com/Code-Institute-Org/cra-template-moments.git --use-npm`
+**Description:** WatchForum is a Django-based web application focused on facilitating discussions about watches and timepieces. Inspired by the Code Institute's Moments template project, it serves as a platform for watch enthusiasts to engage in conversations, share insights, and explore the world of horology.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Codeanywhere and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **31st August, 2023**
+## Table of Contents
 
-## Codeanywhere Reminders
+- [Introduction](#introduction)
+- [Features](#features)
+- [Website Intentions](#website-intentions)
+- [Creation Process](#creation-process)
+  - [Strategy](#strategy)
+  - [Structure](#structure)
+  - [Design](#design)
+  - [Surface](#surface)
+- [Features](#features)
+  - [Homepage](#homepage)
+  - [Browse Watches](#browse-watches)
+  - [Messaging System](#messaging-system)
+  - [User Dashboard](#user-dashboard)
+- [Testing](#testing)
+  - [HTML Validator](#html-validator)
+  - [CSS Validator](#css-validator)
+  - [Lighthouse](#lighthouse)
+  - [Manual Testing](#manual-testing)
+  - [Issues and Their Solutions](#issues-and-their-solutions)
+- [Deployment](#deployment)
+- [Credits](#credits)
+  - [Content](#content)
+  - [Media](#media)
+  - [Code](#code)
 
-In Codeanywhere you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+## Introduction
 
-To log into the Heroku toolbelt CLI:
+WatchForum is a dedicated space for watch enthusiasts to discuss, share, and explore the fascinating world of watches and timepieces. Whether you're a seasoned collector or a casual enthusiast, WatchForum provides a platform for meaningful conversations and insights.
 
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In Codeanywhere, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+## Features
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+- **Engaging Conversations**: Join discussions, share insights, and connect with like-minded individuals.
+- **Inspired by Moments Template**: Built upon the foundation of the Code Institute's Moments template project.
 
----
+## Website Intentions
 
-Happy coding!
+**For the User:**
 
-# Getting Started with Create React App
+- Engage in conversations about watches and timepieces.
+- Share insights, experiences, and knowledge with the community.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**For the Site Developer:**
 
-## Available Scripts
+- Provide a user-friendly platform for watch enthusiasts.
+- Foster a sense of community and shared passion.
 
-In the project directory, you can run:
+## Creation Process
 
-### `npm install`
+### Strategy
 
-Installs the required npm packages.
+WatchForum operates as a discussion-centric platform, aiming to connect watch enthusiasts and foster meaningful conversations. The website's primary goal is to provide a space where users can share their love for watches.
 
-### `npm start`
+### Structure
 
-Runs the app in the development mode.\
-Open port 3000 to view it in the browser.
+The website is structured to provide an intuitive and engaging user experience:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Homepage**: Features captivating visuals and a welcoming environment.
+- **Browse Watches**: Allows users to explore various watch discussions and topics.
+- **Messaging System**: Facilitates communication between users. // Planned to be Incorporated. Late Winter 2024
+- **User Dashboard**: Provides a dashboard for users to manage their discussions. // To be expanded Spring 2024
 
-### `npm test`
+### Design
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The website design prioritizes visual appeal and user experience.
 
-### `npm run build`
+**Color Scheme**:
+- The project adopts a color scheme with various shades, creating a visually pleasing environment for discussions.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Fonts**:
+- Fonts selected from Google Fonts ensure readability and aesthetics. These include Verdana and Bebas Neue.
+- [Google Fonts](https://fonts.google.com/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Color Scheme: The color scheme incorporates various shades to enhance visual appeal and readability.
+- Heavy use of Orangy and dark blue colors DAA520 / 2142b2
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Features
 
-### `npm run eject`
+### Homepage
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Main Screen**: Features captivating images and a welcoming slogan.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Watch Selection**: Allows users to explore and engage in various watch-related discussions.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Messaging System - This is to be included, But due to a lack of time it was not featured in the deployed build/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Communication**: Facilitates discussions between users.
 
-### Code Splitting
+### User Dashboard
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Management**: Allows users to manage their discussions.
 
-### Analyzing the Bundle Size
+## Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **HTML Validator**: Ensured HTML code passes validation.
+- **CSS Validator**: Ensured CSS code passes validation.
+- **Lighthouse**: Conducted performance testing for efficient loading.
+- **Manual Testing**: Tested on various browsers and devices for optimal responsiveness.
 
-### Making a Progressive Web App
+## Issues and Their Solutions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+During the development process, several issues were encountered, and some are ongoing:
 
-### Advanced Configuration
+- **Real-Time Update Issue**: There is an ongoing issue with updating follower/following icons in real-time in the developed build. Work on resolving this issue continues.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Deployment Challenges**: Deploying the project to Heroku posed challenges due to compatibility issues with Node 20. As a workaround, the project had to be reverted back to using Node version 14.
 
-### Deployment
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The website will be deployed to Heroku. To view it on your local server, follow these steps:
 
-### `npm run build` fails to minify
+1. Clone this repository to your local machine.
+2. Navigate to the project directory.
+3. Install the required dependencies using
+4. Run the application using 
+5. Access the website at `(https://watchforumkarlo-1fa8fac8032c.herokuapp.com/)`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Credits
+
+**Content**: Inspired by the world of horology and the passion of watch enthusiasts.
+
+**Code**: Fonts were chosen from Google Fonts. Color and Design inspired mostly by browsing through the internet.
+
+**Copilot**: Special thanks to GPT-3.5 Assistant - Alex for providing valuable assistance throughout the project, including testing of my code for potential errors.
+
+**Libraries and Frameworks**:
+- [Google Fonts](https://fonts.google.com/): Provides a wide range of fonts for improved readability and aesthetics.
+- [Font Awesome](https://fontawesome.com/): Used for adding scalable vector icons and logos.
