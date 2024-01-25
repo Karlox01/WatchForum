@@ -17,7 +17,7 @@
     width: 100%;
 }
 
-.quill{
+.quill {
     height: 200px;
     margin-bottom: 50px;
 
@@ -40,6 +40,32 @@ i {
     padding: 7px;
     vertical-align: middle;
 }
+
+.buttonContainer {
+    border: none;
+}
+
+
+.followButton {
+    background-color: transparent;
+    color: #301934 !important;
+    border: none;
+}
+
+.unfollowButton {
+    background-color: transparent;
+    color: #301934 !important;
+    border: none;
+}
+
+.iconColor {
+    color: #301934 !important;
+}
+
+.iconColor:hover {
+    color: #301934 !important;
+}
+
 
 i:hover {
     cursor: pointer;

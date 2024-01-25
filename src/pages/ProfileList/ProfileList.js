@@ -26,7 +26,7 @@ const ProfileList = () => {
         <Post
           key={profile.id}
           user_joined_at={profile.user_joined_at}
-          ownerCreatedAt={profile.user_joined_at}  // Pass the user creation date
+          ownerCreatedAt={profile.user_joined_at}  
           id={profile.id}
           owner={profile.owner}
           profile_id={profile.profile_id}

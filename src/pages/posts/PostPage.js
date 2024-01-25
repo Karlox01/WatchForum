@@ -38,7 +38,7 @@ function PostPage() {
 
     return (
         <Container fluid>
-            <Post {...post.results[0]} style={{ width: "100%" }} />
+            <Post {...post.results[0]} setPosts={setPost} style={{ width: "100%" }} />
             <Container>
                 {comments.results.length ? (
                     <InfiniteScroll
@@ -56,7 +56,6 @@ function PostPage() {
                         next={() => fetchMoreData(comments, setComments)}
                     />
                 ) : null}
-                {/* Always render the comment form, even if no comments exist */}
                 {currentUser && (
                     <CommentCreateForm
                         profile_id={currentUser.profile_id}

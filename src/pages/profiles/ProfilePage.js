@@ -24,10 +24,13 @@ import Post from "../posts/Post";
 import { fetchMoreData } from "../../utils/utils";
 import NoResults from "../../assets/no-results.png";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
+import FollowingModal from "./FollowingModal";
 
 function ProfilePage() {
     const [hasLoaded, setHasLoaded] = useState(false);
     const [profilePosts, setProfilePosts] = useState({ results: [] });
+    const [showFollowingModal, setShowFollowingModal] = useState(false);
+    const [followers, setFollowers] = useState([]);
 
     const currentUser = useCurrentUser();
     const { id } = useParams();
@@ -41,16 +44,18 @@ function ProfilePage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [{ data: pageProfile }, { data: profilePosts }] =
+                const [{ data: pageProfile }, { data: profilePosts }, { data: followersData }] =
                     await Promise.all([
                         axiosReq.get(`/profiles/${id}/`),
                         axiosReq.get(`/posts/?owner__profile=${id}`),
+                        axiosReq.get(`/followers/?owner=${id}`),
                     ]);
                 setProfileData((prevState) => ({
                     ...prevState,
                     pageProfile: { results: [pageProfile] },
                 }));
                 setProfilePosts(profilePosts);
+                setFollowers(followersData.results);
                 setHasLoaded(true);
             } catch (err) {
                 console.log(err);
@@ -61,16 +66,16 @@ function ProfilePage() {
 
     const mainProfile = (
         <>
-            
+
             <Row noGutters className="px-3 text-center">
                 <Col lg={3} className="text-lg-left">
                     <Image
                         className={styles.ProfileImage}
                         roundedCircle
                         src={profile?.image}
-                    /> 
+                    />
                 </Col>
-                
+
                 <Col lg={6}>
                     <h3 className="m-2">{profile?.owner}</h3>
                     <Row className="justify-content-center no-gutters">
@@ -83,8 +88,14 @@ function ProfilePage() {
                             <div>followers</div>
                         </Col>
                         <Col xs={3} className="my-2">
-                            <div>{profile?.following_count}</div>
-                            <div>following</div>
+                            <Button
+                                variant="link"
+                                className="text-decoration-none p-0"
+                                onClick={() => setShowFollowingModal(true)}
+                            >
+                                <div>{profile?.following_count}</div>
+                                <div>following</div>
+                            </Button>
                         </Col>
                         {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
                     </Row>
@@ -139,6 +150,9 @@ function ProfilePage() {
 
     return (
         <Row>
+            <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
+                <PopularProfiles />
+            </Col>
             <Col className="py-2 p-0 p-lg-2" lg={8}>
                 <PopularProfiles mobile />
                 <Container className={appStyles.Content}>
@@ -152,9 +166,13 @@ function ProfilePage() {
                     )}
                 </Container>
             </Col>
-            <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-                <PopularProfiles />
-            </Col>
+
+            <FollowingModal
+                show={showFollowingModal}
+                handleClose={() => setShowFollowingModal(false)}
+                followingList={followers}
+            />
+
         </Row>
     );
 }

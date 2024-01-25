@@ -39,13 +39,6 @@ const NavBar = () => {
 
     const loggedInIcons = <>
         <NavLink
-            to="/feed"
-            className={styles.NavLinks}
-            activeClassName={styles.Active}>
-            <i className="fas fa-stream" style={{ marginRight: '5px' }}></i>
-            Forum
-        </NavLink>
-        <NavLink
             to="/liked"
             className={styles.NavLinks}
             activeClassName={styles.Active}>
