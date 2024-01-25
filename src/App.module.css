@@ -4,7 +4,7 @@
 }
 
 .Main {
-    padding-top: 81px;
+    padding-top: 100px;
 }
 
 * {
@@ -41,21 +41,19 @@ i {
     vertical-align: middle;
 }
 
-.buttonContainer {
-    border: none;
-}
-
 
 .followButton {
     background-color: transparent;
     color: #301934 !important;
     border: none;
+
 }
 
 .unfollowButton {
     background-color: transparent;
     color: #301934 !important;
     border: none;
+
 }
 
 .iconColor {

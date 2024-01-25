@@ -6,9 +6,9 @@ import Asset from "../../components/Asset";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Profile from "./Profile";
 
+// Inside the PopularProfiles component
 const PopularProfiles = ({ mobile }) => {
   const [profileData, setProfileData] = useState({
-    // we will use the pageProfile later!
     pageProfile: { results: [] },
     popularProfiles: { results: [] },
   });
@@ -26,7 +26,7 @@ const PopularProfiles = ({ mobile }) => {
           popularProfiles: data,
         }));
       } catch (err) {
-        console.log(err);
+
       }
     };
 
@@ -45,7 +45,7 @@ const PopularProfiles = ({ mobile }) => {
           {mobile ? (
             <div className="d-flex justify-content-around">
               {popularProfiles.results.slice(0, 4).map((profile) => (
-                <Profile key={profile.id} profile={profile} mobile/>
+                <Profile key={profile.id} profile={profile} mobile />
               ))}
             </div>
           ) : (

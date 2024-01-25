@@ -17,12 +17,8 @@ const ProfilesWithMostPosts = ({ mobile }) => {
     useEffect(() => {
         const handleMount = async () => {
             try {
-
                 const postsData = await fetchAllPages("/posts/");
-
-
                 const commentsData = await fetchAllPages("/comments/");
-
 
                 const countsObj = {};
                 postsData.forEach((post) => {
@@ -32,7 +28,6 @@ const ProfilesWithMostPosts = ({ mobile }) => {
                         comments: countsObj[userId] && countsObj[userId].comments ? countsObj[userId].comments : 0,
                     };
                 });
-
 
                 commentsData.forEach((comment) => {
                     const userId = comment.profile_id;
@@ -44,11 +39,9 @@ const ProfilesWithMostPosts = ({ mobile }) => {
 
                 setActivityCounts(countsObj);
 
-
                 const sortedProfiles = Object.keys(countsObj).sort((a, b) =>
                     countsObj[b].posts + countsObj[b].comments - (countsObj[a].posts + countsObj[a].comments)
                 );
-
 
                 const { data } = await axiosReq.get(`/profiles/?id__in=${sortedProfiles.slice(0, 4).join(",")}`);
                 setProfileData((prevState) => ({
@@ -56,7 +49,7 @@ const ProfilesWithMostPosts = ({ mobile }) => {
                     mostActiveProfiles: data,
                 }));
             } catch (err) {
-                console.log(err);
+
             }
         };
 

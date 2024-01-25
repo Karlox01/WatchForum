@@ -25,11 +25,13 @@ import { fetchMoreData } from "../../utils/utils";
 import NoResults from "../../assets/no-results.png";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
 import FollowingModal from "./FollowingModal";
+import FollowersModal from "./FollowersModal";
 
 function ProfilePage() {
     const [hasLoaded, setHasLoaded] = useState(false);
     const [profilePosts, setProfilePosts] = useState({ results: [] });
     const [showFollowingModal, setShowFollowingModal] = useState(false);
+    const [showFollowersModal, setShowFollowersModal] = useState(false);
     const [followers, setFollowers] = useState([]);
 
     const currentUser = useCurrentUser();
@@ -58,7 +60,8 @@ function ProfilePage() {
                 setFollowers(followersData.results);
                 setHasLoaded(true);
             } catch (err) {
-                console.log(err);
+                
+                
             }
         };
         fetchData();
@@ -84,8 +87,16 @@ function ProfilePage() {
                             <div>posts</div>
                         </Col>
                         <Col xs={3} className="my-2">
-                            <div>{profile?.followers_count}</div>
-                            <div>followers</div>
+                            <Button
+                                variant="link"
+                                className="text-decoration-none p-0"
+                                onClick={() => {
+                                    setShowFollowersModal(true);
+                                }}
+                            >
+                                <div>{profile?.followers_count}</div>
+                                <div>followers</div>
+                            </Button>
                         </Col>
                         <Col xs={3} className="my-2">
                             <Button
@@ -100,7 +111,7 @@ function ProfilePage() {
                         {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
                     </Row>
                 </Col>
-                <Col lg={3} className="text-lg-right">
+                <Col lg={3} className="text-lg-right p-5">
                     {currentUser &&
                         !is_owner &&
                         (profile?.following_id ? (
@@ -170,6 +181,11 @@ function ProfilePage() {
             <FollowingModal
                 show={showFollowingModal}
                 handleClose={() => setShowFollowingModal(false)}
+                followingList={followers}
+            />
+            <FollowersModal
+                show={showFollowersModal}
+                handleClose={() => setShowFollowersModal(false)}
                 followingList={followers}
             />
 

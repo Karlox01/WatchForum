@@ -1,5 +1,21 @@
 .WordBreak {
     word-break: break-all;
-    
+    width: 105px;
 }
 
+.margin {
+    margin-top: 100px;
+    padding: 5px;
+    width: 100%;
+}
+
+.ownerofPost {
+    font-size: 25px;
+    width: 100%;
+    text-align: center;
+}
+
+p {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }

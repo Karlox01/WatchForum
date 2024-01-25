@@ -1,0 +1,76 @@
+/* FollowersModal.module.css */
+
+.followersModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, hsla(210, 30%, 20%, 0.1), hsl(255, 30%, 25%, 0.4));
+}
+
+.modalContent {
+    width: 60rem;
+    padding: 4rem 2rem;
+    border-radius: 0.8rem;
+    color: var(--light);
+    background: var(--background);
+    box-shadow: var(--m-shadow, 0.4rem 0.4rem 10.2rem 0.2rem) var(--shadow-1);
+    position: relative;
+    overflow: hidden;
+
+}
+
+.modalHeader {
+    background-color: var(--primary);
+    color: var(--light);
+    border-top-left-radius: 0.8rem;
+    border-top-right-radius: 0.8rem;
+    font-family: 'Bebas Neue', serif;
+
+}
+
+.modalBody {
+    padding: 0 2rem;
+    margin-top: 4rem;
+    font-size: 1.6rem;
+    line-height: 2;
+    global-background: hsl(220, 25%, 10%);
+    background: linear-gradient(to right, hsl(210, 30%, 20%), hsl(255, 30%, 25%));
+    color: #fafafa;
+    text-align: center;
+    font-family: 'Bebas Neue', serif;
+    border-radius: 5%;
+}
+
+.modalFooter {
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+    font-family: 'Bebas Neue', serif;
+    text-align: center;
+}
+
+.btnSecondary {
+    margin-top: 4rem;
+    padding: 1rem 1.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 100rem;
+    color: inherit;
+    background: transparent;
+    font-size: 1.4rem;
+    font-family: inherit;
+    letter-spacing: 0.2rem;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.btnSecondary:first-of-type {
+    margin-right: 1rem;
+}
+
+.btnSecondary:hover,
+.btnSecondary:focus {
+    background: var(--focus);
+    border-color: var(--focus);
+    transform: translateY(-0.2rem);
+    color: #DAA520;
+}

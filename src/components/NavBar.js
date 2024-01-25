@@ -8,10 +8,12 @@ import { NavLink } from 'react-router-dom';
 import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
 import { removeTokenTimestamp } from '../utils/utils';
 import useClickOutsideToggle from '../hooks/useClickOutsideToggle';
+import { useHistory } from 'react-router-dom';
 
 const NavBar = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
+    const history = useHistory();
 
 
     const { expanded, setExpanded, ref } = useClickOutsideToggle();
@@ -22,8 +24,10 @@ const NavBar = () => {
             await axios.post("dj-rest-auth/logout/");
             setCurrentUser(null);
             removeTokenTimestamp();
+
+            history.push('/');
         } catch (err) {
-            console.log(err)
+            
         }
     };
 
@@ -54,7 +58,7 @@ const NavBar = () => {
             Sign Out
         </NavLink>
         <NavLink className={styles.NavLink} to={`/profiles/${currentUser?.profile_id}`}>
-            <Avatar src={currentUser?.profile_image} alt="img" text={currentUser?.username}  />
+            <Avatar src={currentUser?.profile_image} alt="img" text={currentUser?.username} />
         </NavLink>
     </>;
     const loggedOutIcons = (

@@ -1,26 +1,23 @@
+// FollowersModal.js
 import React from "react";
+import Styles from "../../styles/FollowersModal.module.css";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useProfileData } from "../../contexts/ProfileDataContext";
-import Styles from "../../styles/FollowingModal.module.css";
 
-
-
-const FollowingModal = ({ show, handleClose, followingList }) => {
-    const currentUser = useCurrentUser();
+const FollowersModal = ({ show, handleClose, followingList }) => {
     const { pageProfile } = useProfileData();
-
     const profileOwner = pageProfile.results[0]?.owner || "";
 
+    // Filter followers based on the owner's username
     const filteredFollowers = followingList
-        .filter((follower) => follower.owner === profileOwner)
-        .map((follower) => follower.followed_name);
+        .filter((follower) => follower.followed_name === profileOwner)
+        .map((follower) => follower.owner);
 
     return (
-        <Modal show={show} onHide={handleClose} className={Styles.followingModal}>
+        <Modal show={show} onHide={handleClose} className={Styles.followersModal}>
             <Modal.Header closeButton className={Styles.modalHeader}>
-                <Modal.Title>Following</Modal.Title>
+                <Modal.Title>Followers</Modal.Title>
             </Modal.Header>
             <Modal.Body className={Styles.modalBody}>
                 {filteredFollowers.length > 0 ? (
@@ -40,5 +37,4 @@ const FollowingModal = ({ show, handleClose, followingList }) => {
     );
 };
 
-export default FollowingModal;
-
+export default FollowersModal;

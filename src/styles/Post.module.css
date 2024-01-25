@@ -1,18 +1,21 @@
 .Post {
     background-color: #ffffff;
-    border: 1px solid #dadadf;
+    border-bottom: 2px solid black !important;
     border-radius: 2px;
-    margin-bottom: 16px;
+    margin-bottom: 26px;
     text-align: center;
+    border: 0px;
 }
 
 
 
 .AvatarDetails {
     text-decoration: none;
-    color: #f85032;
-    font-weight: 100;
-    font-size: 15px;
+    color: black;
+    font-weight: 100 !important;
+    font-size: 13px;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 .Heart {
@@ -37,7 +40,7 @@
 .PostTitleLink {
     display: block; /* Use flexbox */
     text-align: center;
-    color: #f85032;
+    color: black;
     text-decoration: none;
 }
 
@@ -47,13 +50,13 @@
     align-items: center; /* Center items vertically */
     justify-content: center; /* Space between items (for Card.Title and MoreDropdown) */
     text-align: center;
-    color: #f85032;
+    color: black;
     text-decoration: none;
 }
 
 .PostLink {
     text-align: center;
-    color: #f85032;
+    color: black;
     text-decoration: none;
     font-size: 35px;
 }
