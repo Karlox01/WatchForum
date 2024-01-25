@@ -14,8 +14,9 @@ ReactDOM.render(
         <App />
       </ProfileDataProvider>
     </CurrentUserProvider>
-  </Router>
-  document.getElementById('root')
+  </Router>,
+
+    document.getElementById('root')
 );
 
 reportWebVitals();
