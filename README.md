@@ -129,10 +129,11 @@ The website will be deployed to Heroku. To view it on your local server, follow 
 
 **Content**: Inspired by the world of horology and the passion of watch enthusiasts.
 
-**Code**: Fonts were chosen from Google Fonts. Color and Design inspired mostly by browsing through the internet.
+**Code**: Built upon the foundation of the [Code Institute's Moments template project](https://learn.codeinstitute.net/ci_moments_template), WatchForum incorporates elements and concepts from this project.
 
 **Copilot**: Special thanks to GPT-3.5 Assistant - Alex for providing valuable assistance throughout the project, including testing of my code for potential errors.
 
 **Libraries and Frameworks**:
 - [Google Fonts](https://fonts.google.com/): Provides a wide range of fonts for improved readability and aesthetics.
 - [Font Awesome](https://fontawesome.com/): Used for adding scalable vector icons and logos.
+
