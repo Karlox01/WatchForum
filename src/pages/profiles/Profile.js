@@ -20,7 +20,7 @@ const Profile = (props) => {
     return (
         <div
             className={`my-3 d-flex align-items-center ${mobile && "flex-column"} ${styles.margin}`}
-            style={{ marginTop: "40px" }}q
+            style={{ marginTop: "40px" }}
         >
             <div>
                 <Link className="align-self-center" to={`/profiles/${id}`}>

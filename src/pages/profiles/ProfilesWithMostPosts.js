@@ -10,31 +10,26 @@ const ProfilesWithMostPosts = ({ mobile }) => {
     const [profileData, setProfileData] = useState({
         mostActiveProfiles: { results: [] },
     });
-    const { mostActiveProfiles } = profileData;
     const currentUser = useCurrentUser();
-    const [activityCounts, setActivityCounts] = useState({}); // Initialize counts as a state
+    const [activityCounts, setActivityCounts] = useState({});
+
+    // Define activityCounts outside useEffect
+    const countsObj = {};
 
     useEffect(() => {
-        const handleMount = async () => {
+        const fetchData = async () => {
             try {
                 const postsData = await fetchAllPages("/posts/");
                 const commentsData = await fetchAllPages("/comments/");
 
-                const countsObj = {};
                 postsData.forEach((post) => {
                     const userId = post.profile_id;
-                    countsObj[userId] = {
-                        posts: (countsObj[userId] && countsObj[userId].posts) ? countsObj[userId].posts + 1 : 1,
-                        comments: countsObj[userId] && countsObj[userId].comments ? countsObj[userId].comments : 0,
-                    };
+                    countsObj[userId] = { posts: (countsObj[userId]?.posts || 0) + 1, comments: countsObj[userId]?.comments || 0 };
                 });
 
                 commentsData.forEach((comment) => {
                     const userId = comment.profile_id;
-                    countsObj[userId] = {
-                        posts: countsObj[userId] && countsObj[userId].posts ? countsObj[userId].posts : 0,
-                        comments: (countsObj[userId] && countsObj[userId].comments) ? countsObj[userId].comments + 1 : 1,
-                    };
+                    countsObj[userId] = { posts: countsObj[userId]?.posts || 0, comments: (countsObj[userId]?.comments || 0) + 1 };
                 });
 
                 setActivityCounts(countsObj);
@@ -43,17 +38,18 @@ const ProfilesWithMostPosts = ({ mobile }) => {
                     countsObj[b].posts + countsObj[b].comments - (countsObj[a].posts + countsObj[a].comments)
                 );
 
-                const { data } = await axiosReq.get(`/profiles/?id__in=${sortedProfiles.slice(0, 4).join(",")}`);
+                const { data } = await axiosReq.get(`/profiles/?id__in=${sortedProfiles.join(",")}`);
+
                 setProfileData((prevState) => ({
                     ...prevState,
-                    mostActiveProfiles: data,
+                    mostActiveProfiles: { results: data?.results?.slice(0, 10) || [] },
                 }));
-            } catch (err) {
-
+            } catch (error) {
+                console.error("Error in fetchData:", error);
             }
         };
 
-        handleMount();
+        fetchData();
     }, [currentUser]);
 
     const fetchAllPages = async (endpoint) => {
@@ -68,38 +64,37 @@ const ProfilesWithMostPosts = ({ mobile }) => {
     };
 
     return (
-        <Container
-            className={`${appStyles.Content} ${mobile && "d-lg-none text-center mb-3"
-                }`}
-        >
-            {mostActiveProfiles.results.length ? (
+        <Container className={`${appStyles.Content} ${mobile && "d-lg-none text-center mb-3"}`}>
+            {profileData.mostActiveProfiles.results.length ? (
                 <>
                     <p className="text-center">Most active users.</p>
                     {mobile ? (
                         <div className="d-flex justify-content-around">
-                            {mostActiveProfiles.results.map((profile) => (
+                            {profileData.mostActiveProfiles.results.map((profile) => (
                                 <Profile
                                     key={profile.id}
                                     profile={{
                                         ...profile,
-                                        posts_count: activityCounts[profile.id] ? activityCounts[profile.id].posts : 'Posts: 0',
-                                        comments_count: activityCounts[profile.id] ? activityCounts[profile.id].comments : 'Comments: 0',
+                                        posts_count: activityCounts[profile.id]?.posts || 0,
+                                        comments_count: activityCounts[profile.id]?.comments || 0,
                                     }}
                                     mobile
                                 />
                             ))}
                         </div>
                     ) : (
-                        mostActiveProfiles.results.map((profile) => (
-                            <Profile className='text-center p-2'
-                                key={profile.id}
-                                profile={{
-                                    ...profile,
-                                    posts_count: activityCounts[profile.id] ? activityCounts[profile.id].posts : ' 0',
-                                    comments_count: activityCounts[profile.id] ? activityCounts[profile.id].comments : ' 0',
-                                }}
-                            />
-                        ))
+                        profileData.mostActiveProfiles.results
+                            .filter(profile => activityCounts[profile.id]?.posts + activityCounts[profile.id]?.comments > 0)
+                            .map((profile) => (
+                                <Profile
+                                    key={profile.id}
+                                    profile={{
+                                        ...profile,
+                                        posts_count: activityCounts[profile.id]?.posts || 0,
+                                        comments_count: activityCounts[profile.id]?.comments || 0,
+                                    }}
+                                />
+                            ))
                     )}
                 </>
             ) : (

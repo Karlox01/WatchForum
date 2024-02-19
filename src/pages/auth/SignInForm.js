@@ -25,6 +25,8 @@ const SignInForm = () => {
     });
     const { username, password } = signInData;
 
+    const [showPassword, setShowPassword] = useState(false);
+
     const [errors, setErrors] = useState({});
     const history = useHistory();
 
@@ -76,7 +78,7 @@ const SignInForm = () => {
                             <Form.Label>- Password -</Form.Label>
                             <Form.Control
                                 className={`${styles.Input} bg-transparent`}
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder="Password"
                                 name="password"
                                 value={password}
@@ -88,6 +90,15 @@ const SignInForm = () => {
                                 {message}
                             </Alert>
                         ))}
+                        <Form.Group controlId="showPassword" className={`${styles.FormGroup} text-center`}>
+                            <Form.Check
+                                type="checkbox"
+                                label="Show Password"
+                                onChange={() => setShowPassword(!showPassword)}
+                                className="d-inline-block"
+                            />
+                        </Form.Group>
+
 
                         <Button
                             className={`${btnStyles.Button} ${styles.Wide} ${btnStyles.Bright} mt-3`}

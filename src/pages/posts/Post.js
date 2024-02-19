@@ -104,7 +104,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                     {title}
                   </Link>
                 </Card.Title>
-                <p className={styles.TruncatedContent}>{ReactHtmlParser(truncatedContent)}</p>
+                <span className={styles.TruncatedContent}>{ReactHtmlParser(truncatedContent)}</span>
                 <div className={styles.PostBar}>
                   {is_owner ? (
                     <OverlayTrigger
