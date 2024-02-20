@@ -60,8 +60,8 @@ function ProfilePage() {
                 setFollowers(followersData.results);
                 setHasLoaded(true);
             } catch (err) {
-                
-                
+
+
             }
         };
         fetchData();

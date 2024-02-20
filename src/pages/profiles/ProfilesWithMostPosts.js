@@ -4,6 +4,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useSetProfileData } from "../../contexts/ProfileDataContext";
 import Profile from "./Profile";
 
 const ProfilesWithMostPosts = ({ mobile }) => {
@@ -12,6 +13,8 @@ const ProfilesWithMostPosts = ({ mobile }) => {
     });
     const currentUser = useCurrentUser();
     const [activityCounts, setActivityCounts] = useState({});
+    const { handleFollow, handleUnfollow } = useSetProfileData();
+
 
     // Define activityCounts outside useEffect
     const countsObj = {};
@@ -50,7 +53,7 @@ const ProfilesWithMostPosts = ({ mobile }) => {
         };
 
         fetchData();
-    }, [currentUser]);
+    }, [currentUser, handleFollow, handleUnfollow]);
 
     const fetchAllPages = async (endpoint) => {
         let allData = [];
