@@ -22,9 +22,9 @@ function PostEditForm() {
   const [postData, setPostData] = useState({
     title: "",
     content: "",
-    image: "",
+    images: [],
   });
-  const { title, content, image } = postData;
+  const { title, content, images } = postData;
   const imageInput = useRef(null);
   const history = useHistory();
   const { id } = useParams();
@@ -33,11 +33,14 @@ function PostEditForm() {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/posts/${id}`);
-        const { title, content, image, is_owner } = data;
+        const { title, content, images, is_owner } = data;
 
-        is_owner ? setPostData({ title, content, image }) : history.push('/');
+        // Make sure to map the images array to extract the 'image' property
+        const formattedImages = images.map((img) => img.image);
+
+        is_owner ? setPostData({ title, content, images: formattedImages }) : history.push('/');
       } catch (err) {
-        
+        // Handle error if any
       }
     };
 
@@ -46,13 +49,11 @@ function PostEditForm() {
 
   const handleChange = (event, value) => {
     if (event && event.target && event.target.name) {
-      // Regular input change
       setPostData({
         ...postData,
         [event.target.name]: event.target.value,
       });
     } else {
-      // ReactQuill editor change
       setPostData({
         ...postData,
         content: value,
@@ -60,13 +61,36 @@ function PostEditForm() {
     }
   };
 
-  const handleChangeImage = (event) => {
+  const handleChangeImages = (event) => {
     if (event.target.files.length) {
-      URL.revokeObjectURL(image);
+      const selectedImages = Array.from(event.target.files);
       setPostData({
         ...postData,
-        image: URL.createObjectURL(event.target.files[0]),
+        images: selectedImages,
       });
+    }
+  };
+
+  const handleDeleteImage = async (index) => {
+    try {
+      const updatedImages = [...images];
+      const deletedImage = updatedImages.splice(index, 1)[0]; // Removed image
+  
+      console.log("Before request - Updated Images:", updatedImages);
+      console.log("Deleted Image:", deletedImage);
+  
+      // Make a request to your server to update the post and delete the image
+      await axiosReq.put(`/posts/${id}/`, { deletedImages: [deletedImage.id] });
+  
+      console.log("After request - Updated Images:", updatedImages);
+  
+      setPostData((prevData) => ({
+        ...prevData,
+        images: updatedImages,
+      }));
+    } catch (error) {
+      console.error("Error deleting image:", error);
+      // Handle error, show a message to the user, etc.
     }
   };
 
@@ -76,11 +100,14 @@ function PostEditForm() {
 
     formData.append("title", title);
     formData.append("content", content);
-    if (imageInput?.current?.files[0]) {
-      formData.append("image", imageInput.current.files[0]);
+
+    // Append each image to the formData
+    for (let i = 0; i < images.length; i++) {
+      formData.append(`image_${i}`, images[i]);
     }
 
     try {
+      // Make API call to update post data
       await axiosReq.put(`/posts/${id}/`, formData);
       history.push(`/posts/${id}`);
     } catch (err) {
@@ -144,32 +171,41 @@ function PostEditForm() {
         </Row>
         <Row className="justify-content-center mt-4">
           <Col xs={12} md={8} className="text-center">
-            {image ? (
-              <figure>
-                <Image className={appStyles.Image} src={image} rounded />
-                <Button
-                  className={`${btnStyles.Button} ${btnStyles.Bright}`}
-                  onClick={openFileInput}
-                >
-                  Change Image
-                </Button>
-              </figure>
+            {images.length > 0 ? (
+              <>
+                {images.map((image, index) => (
+                  <div key={index} className={styles.CurrentImageContainer}>
+                    <Image
+                      className={appStyles.Image}
+                      src={image}  // Assuming 'image' is the URL in your API response
+                      rounded
+                    />
+                    <Button
+                      className={`${btnStyles.Button} ${btnStyles.Danger}`}
+                      onClick={() => handleDeleteImage(index)}
+                    >
+                      Delete Image
+                    </Button>
+                  </div>
+                ))}
+              </>
             ) : (
               <Button
                 className={`${btnStyles.Button} ${btnStyles.Bright}`}
                 onClick={openFileInput}
               >
-                Upload Image
+                Add More Images
               </Button>
             )}
             <Form.File
               id="image-upload"
               accept="image/*"
-              onChange={handleChangeImage}
+              multiple={true}
+              onChange={handleChangeImages}
               ref={imageInput}
               className="d-none"
             />
-            {errors?.image?.map((message, idx) => (
+            {errors?.images?.map((message, idx) => (
               <Alert variant="warning" key={idx}>
                 {message}
               </Alert>

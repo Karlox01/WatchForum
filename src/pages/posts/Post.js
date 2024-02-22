@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../styles/Post.module.css';
+import ownerstyle from '../../styles/Comment.module.css';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { Card, OverlayTrigger, Tooltip, Row, Col } from 'react-bootstrap';
 import Avatar from '../../components/Avatar';
@@ -89,7 +90,8 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
           <Link to={`/profiles/${profile_id}`} className={styles.AvatarLink}>
             <Avatar src={profile_image} height={125} />
             <div className={styles.AvatarDetails}>
-              <span> Topic started by : {owner}</span>
+              <span> Topic started by</span>
+              <div className={ownerstyle.Owner}>{owner}</div>
               <p>Created on :{created_at}</p>
               <p>Last updated : {updated_at}</p>
             </div>
@@ -157,7 +159,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                               <Card.Img
                                 src={image.image}
                                 alt={title}
-                                className={styles.ImagePost}
+                                className={`${styles.ImagePost} ${styles.PostImage}`}
                               />
                             </Link>
                           </Col>

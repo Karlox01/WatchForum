@@ -33,12 +33,13 @@
 .PostImage {
     max-width: 100%;
     height: auto;
-    margin: 0 auto;
+    margin: 25px 20px;
     display: block;
 }
 
 .PostTitleLink {
-    display: block; /* Use flexbox */
+    display: block;
+    /* Use flexbox */
     text-align: center;
     color: black;
     text-decoration: none;
@@ -46,9 +47,12 @@
 
 
 .PostTitleLinkOnPost {
-    display: flex; /* Use flexbox */
-    align-items: center; /* Center items vertically */
-    justify-content: center; /* Space between items (for Card.Title and MoreDropdown) */
+    display: flex;
+    /* Use flexbox */
+    align-items: center;
+    /* Center items vertically */
+    justify-content: center;
+    /* Space between items (for Card.Title and MoreDropdown) */
     text-align: center;
     color: black;
     text-decoration: none;
@@ -84,38 +88,34 @@
 
 /* Additional properties for the title */
 .Title {
-    padding: 8px; /* Adjust the padding as needed */
-    margin-bottom: 8px; /* Adjust the margin as needed */
+    padding: 8px;
+    margin-bottom: 8px;
     border-radius: 2px;
+    font-weight: bold;
     display: block;
-    font-size: 25px;
-    color: #f85032;
+    font-size: 35px;
+    color: #DAA520;
     font-weight: 400;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Bebas Neue', serif;
     text-transform: uppercase;
 }
 
 
 .ContentContainer {
-    padding: 16px; /* Adjust the padding as needed */
+    padding: 16px;
 }
 
 .Content {
-    min-height: 500px;
-    background-color: #dadadf;
+    min-height: 300px;
+    background-color: rgba(193, 193, 197, 0.2);
     text-align: left;
     border-radius: 10px;
-    padding: 16px; /* Adjust the padding as needed */
+    padding: 26px;
+
 }
 
 /* Use a more specific selector for the nested content */
-.ContentContainer > * {
-    font-size: 15px !important;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+.ContentContainer>* {
+    font-family: 'Times New Roman', Times, serif;
 
-.imagepost {
-    /* max-width: 550px;
-    max-height: 550px; */
 }
-

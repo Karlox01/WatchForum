@@ -53,7 +53,7 @@ const Comment = (props) => {
         <Media.Body className={styles.commentcontent}>
           <div className={styles.OwnerDateContainer}>
             <Link to={`/profiles/${profile_id}`} className={styles.Avatar}>
-              <Avatar src={profile_image} />
+              <Avatar src={profile_image} height={125} width={125}/>
             </Link>
             <span className={styles.Owner}>{owner}</span>
             <span className={styles.Date}>Last commented {updated_at}</span>
