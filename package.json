@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@opentelemetry/api": "^1.7.0",
+    "@opentelemetry/core": "^1.15.2",
     "@popperjs/core": "^2.11.8",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^11.2.7",
