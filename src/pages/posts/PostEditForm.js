@@ -35,8 +35,11 @@ function PostEditForm() {
         const { data } = await axiosReq.get(`/posts/${id}`);
         const { title, content, images, is_owner } = data;
 
-        // Make sure to map the images array to extract the 'image' property
-        const formattedImages = images.map((img) => img.image);
+        // Map the images array to extract 'id' and 'image' properties
+        const formattedImages = images.map((img) => ({
+          id: img.id,
+          image: img.image,
+        }));
 
         is_owner ? setPostData({ title, content, images: formattedImages }) : history.push('/');
       } catch (err) {
@@ -74,20 +77,37 @@ function PostEditForm() {
   const handleDeleteImage = async (index) => {
     try {
       const updatedImages = [...images];
-      const deletedImage = updatedImages.splice(index, 1)[0]; // Removed image
-  
-      console.log("Before request - Updated Images:", updatedImages);
-      console.log("Deleted Image:", deletedImage);
-  
-      // Make a request to your server to update the post and delete the image
-      await axiosReq.put(`/posts/${id}/`, { deletedImages: [deletedImage.id] });
-  
-      console.log("After request - Updated Images:", updatedImages);
-  
-      setPostData((prevData) => ({
-        ...prevData,
-        images: updatedImages,
-      }));
+
+      // Get the deleted image from the array
+      const deletedImage = updatedImages[index];
+
+      console.log('Before deletion - Deleted Image:', deletedImage);
+
+      // Extract 'id' property from the deleted image
+      const imageId = deletedImage.id;
+
+      if (imageId) {
+        const response = await axiosReq.delete(`/posts/${id}/delete-image/${imageId}/`);
+        console.log('Delete Image Response:', response);
+
+        if (response.status === 204) {
+          console.log('Image deleted successfully');
+
+          // Remove the deleted image from the state
+          updatedImages.splice(index, 1);
+
+          console.log("Updated Images after deletion:", updatedImages);
+
+          setPostData((prevData) => ({
+            ...prevData,
+            images: updatedImages,
+          }));
+        } else {
+          console.error('Unexpected response status:', response.status);
+        }
+      } else {
+        console.error("Invalid deleted image structure or missing image id");
+      }
     } catch (error) {
       console.error("Error deleting image:", error);
       // Handle error, show a message to the user, etc.
@@ -103,13 +123,19 @@ function PostEditForm() {
 
     // Append each image to the formData
     for (let i = 0; i < images.length; i++) {
-      formData.append(`image_${i}`, images[i]);
+      if (images[i] instanceof File) {
+        // If it's a File instance, append it to the formData
+        formData.append(`images`, images[i]);
+      } else {
+        // If it's a string (image URL), add it as a string parameter
+        formData.append(`images_urls`, images[i]);
+      }
     }
 
     try {
       // Make API call to update post data
       await axiosReq.put(`/posts/${id}/`, formData);
-      history.push(`/posts/${id}`);
+      history.push(`/posts/${id}/`);
     } catch (err) {
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
@@ -175,11 +201,19 @@ function PostEditForm() {
               <>
                 {images.map((image, index) => (
                   <div key={index} className={styles.CurrentImageContainer}>
-                    <Image
-                      className={appStyles.Image}
-                      src={image}  // Assuming 'image' is the URL in your API response
-                      rounded
-                    />
+                    {image instanceof File ? (
+                      <Image
+                        className={appStyles.Image}
+                        src={URL.createObjectURL(image)}
+                        rounded
+                      />
+                    ) : (
+                      <Image
+                        className={appStyles.Image}
+                        src={image.image}  // Assuming 'image' is the URL in your API response
+                        rounded
+                      />
+                    )}
                     <Button
                       className={`${btnStyles.Button} ${btnStyles.Danger}`}
                       onClick={() => handleDeleteImage(index)}
