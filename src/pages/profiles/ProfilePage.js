@@ -41,7 +41,7 @@ function ProfilePage() {
     const { pageProfile } = useProfileData();
 
     const [profile] = pageProfile.results;
-    const is_owner = currentUser?.username === profile?.owner;
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -80,7 +80,8 @@ function ProfilePage() {
                 </Col>
 
                 <Col lg={6}>
-                    <h3 className="m-2">{profile?.owner}</h3>
+                    <h3 className="m-2 p-2">{profile?.owner}</h3>
+                    {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
                     <Row className="justify-content-center no-gutters">
                         <Col xs={3} className="my-2">
                             <div>{profile?.posts_count}</div>
@@ -108,30 +109,30 @@ function ProfilePage() {
                                 <div>following</div>
                             </Button>
                         </Col>
-                        {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
                     </Row>
                 </Col>
-                <Col lg={3} className="text-lg-right p-5">
-                    {currentUser &&
-                        !is_owner &&
-                        (profile?.following_id ? (
-                            <Button
-                                className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
-                                onClick={() => handleUnfollow(profile)}
-                            >
-                                unfollow
-                            </Button>
-                        ) : (
-                            <Button
-                                className={`${btnStyles.Button} ${btnStyles.Black}`}
-                                onClick={() => handleFollow(profile)}
-                            >
-                                follow
-                            </Button>
-                        ))}
-                </Col>
-                {profile?.content && <Col className="p-3">{profile.content}</Col>}
+                {!profile?.is_owner && (
+                    <Col lg={3} className="text-lg-right p-5">
+                        {currentUser &&
+                            (profile?.following_id ? (
+                                <Button
+                                    className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
+                                    onClick={() => handleUnfollow(profile)}
+                                >
+                                    unfollow
+                                </Button>
+                            ) : (
+                                <Button
+                                    className={`${btnStyles.Button} ${btnStyles.Black}`}
+                                    onClick={() => handleFollow(profile)}
+                                >
+                                    follow
+                                </Button>
+                            ))}
+                    </Col>
+                )}
             </Row>
+            {profile?.content && <Col className="p-3">{profile.content}</Col>}
         </>
     );
 
@@ -165,7 +166,6 @@ function ProfilePage() {
                 <PopularProfiles />
             </Col>
             <Col className="py-2 p-0 p-lg-2" lg={8}>
-                <PopularProfiles mobile />
                 <Container className={appStyles.Content}>
                     {hasLoaded ? (
                         <>
@@ -177,6 +177,8 @@ function ProfilePage() {
                     )}
                 </Container>
             </Col>
+
+            <PopularProfiles mobile />
 
             <FollowingModal
                 show={showFollowingModal}

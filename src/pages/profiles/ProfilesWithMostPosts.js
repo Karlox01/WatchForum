@@ -16,14 +16,15 @@ const ProfilesWithMostPosts = ({ mobile }) => {
     const { handleFollow, handleUnfollow } = useSetProfileData();
 
 
-    // Define activityCounts outside useEffect
-    const countsObj = {};
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const postsData = await fetchAllPages("/posts/");
                 const commentsData = await fetchAllPages("/comments/");
+
+                // Initialize countsObj inside the useEffect
+                const countsObj = {};
 
                 postsData.forEach((post) => {
                     const userId = post.profile_id;
@@ -53,7 +54,7 @@ const ProfilesWithMostPosts = ({ mobile }) => {
         };
 
         fetchData();
-    }, [currentUser, handleFollow, handleUnfollow]);
+    }, [currentUser, handleFollow, handleUnfollow]); // Include countsObj in the dependency array
 
     const fetchAllPages = async (endpoint) => {
         let allData = [];

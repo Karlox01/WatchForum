@@ -14,8 +14,6 @@ const NavBar = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
     const history = useHistory();
-
-
     const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
 
@@ -34,7 +32,7 @@ const NavBar = () => {
     const addPostIcon = (
         <NavLink
             to="/posts/create"
-            className={styles.NavLinks}
+            className={styles.Post}
             activeClassName={styles.Active}>
             <i className="fas fa-plus-square" style={{ marginRight: '5px' }}></i>
             Create a new Post
@@ -57,8 +55,8 @@ const NavBar = () => {
             <i className="fas fa-sign-out-alt" style={{ marginRight: '5px' }}></i>
             Sign Out
         </NavLink>
-        <NavLink className={styles.NavLink} to={`/profiles/${currentUser?.profile_id}`}>
-            <Avatar src={currentUser?.profile_image} alt="img" text={currentUser?.username} />
+        <NavLink className={styles.NavLinks} to={`/profiles/${currentUser?.profile_id}`}>
+            <Avatar src={currentUser?.profile_image} height={35} width={35} alt="img" text={currentUser?.username} />
         </NavLink>
     </>;
     const loggedOutIcons = (

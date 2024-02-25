@@ -9,12 +9,9 @@ import Image from "react-bootstrap/Image";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-import Upload from "../../assets/upload.png";
-
 import styles from "../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import Asset from "../../components/Asset";
 
 import { useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";

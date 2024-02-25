@@ -1,20 +1,59 @@
 .Form {
-    border: none;
-    border-bottom: 2px #00d1ff solid;
+  border: none;
+  border-bottom: 2px #00d1ff solid;
+}
+
+.Button {
+  border: none;
+  background-color: #242a3d;
+  color: aliceblue;
+  border-radius: 100px;
+  padding: 4px 10px;
+  min-width: 75px;
+  margin: 5px;
+}
+
+.Button:hover {
+  cursor: pointer;
+  background-color: aliceblue;
+  color: #242a3d;
+}
+
+
+@media (max-width: 767px) {
+  .commentbox {
+    padding-left: 20px;
+    /* Adjust the left padding for mobile */
+    padding-right: 20px;
+    /* Optional: Adjust the right padding for mobile */
+    text-align: left;
+    /* Align text to the left on mobile devices */
+    margin-bottom: 50px;
+    /* Add margin-bottom for mobile devices */
   }
-  
+
+  .commentbox img {
+    max-width: 100%;
+    /* Ensure images take full width on mobile */
+    height: auto;
+    /* Maintain the aspect ratio of images on mobile */
+  }
+}
+
+/* Mobile styles for the form */
+@media (max-width: 767px) {
+  .Form {
+    /* Add mobile-specific styles for the form here */
+  }
+}
+
+/* Mobile styles for the button */
+@media (max-width: 767px) {
   .Button {
-    border: none;
-    background-color: #242a3d;
-    color: aliceblue;
-    border-radius: 100px;
-    padding: 4px 10px;
-    min-width: 75px;
-    margin: 5px;
+    /* Add mobile-specific styles for the button here */
   }
-  
+
   .Button:hover {
-    cursor: pointer;
-    background-color: aliceblue;
-    color: #242a3d;
+    /* Add mobile-specific styles for the button hover state here */
   }
+}

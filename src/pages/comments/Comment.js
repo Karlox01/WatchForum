@@ -8,6 +8,7 @@ import { axiosRes } from '../../api/axiosDefaults';
 import CommentEditForm from './CommentEditForm';
 import styles from '../../styles/Comment.module.css';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { useMediaQuery } from 'react-responsive'; // Import useMediaQuery
 
 const Comment = (props) => {
   const {
@@ -25,6 +26,8 @@ const Comment = (props) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const handleDelete = async () => {
     try {
@@ -53,7 +56,7 @@ const Comment = (props) => {
         <Media.Body className={styles.commentcontent}>
           <div className={styles.OwnerDateContainer}>
             <Link to={`/profiles/${profile_id}`} className={styles.Avatar}>
-              <Avatar src={profile_image} height={125} width={125}/>
+              <Avatar src={profile_image} height={85} width={85} isMobile={isMobile}/>
             </Link>
             <span className={styles.Owner}>{owner}</span>
             <span className={styles.Date}>Last commented {updated_at}</span>

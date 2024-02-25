@@ -30,40 +30,49 @@ function PostEditForm() {
   const { id } = useParams();
 
   useEffect(() => {
+    let isMounted = true;
+
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/posts/${id}`);
-        const { title, content, images, is_owner } = data;
-
-        // Map the images array to extract 'id' and 'image' properties
-        const formattedImages = images.map((img) => ({
-          id: img.id,
-          image: img.image,
-        }));
-
-        is_owner ? setPostData({ title, content, images: formattedImages }) : history.push('/');
+        if (isMounted) {
+          // Update state only if the component is still mounted
+          const { title, content, images, is_owner } = data;
+          const formattedImages = images.map((img) => ({
+            id: img.id,
+            image: img.image,
+          }));
+          setPostData((prevData) => ({
+            ...prevData,
+            title,
+            content,
+            images: formattedImages,
+          }));
+          if (!is_owner) {
+            history.push('/');
+          }
+        }
       } catch (err) {
-        // Handle error if any
+
       }
     };
 
     handleMount();
-  }, [history, id]);
 
-  const handleChange = (event, value) => {
-    if (event && event.target && event.target.name) {
-      setPostData({
-        ...postData,
+    return () => {
+      // Cleanup function to set isMounted to false when component unmounts
+      isMounted = false;
+    };
+  }, [history, id])
+
+  const handleChange = (event) => {
+    if (event?.target) {
+      setPostData((prevData) => ({
+        ...prevData,
         [event.target.name]: event.target.value,
-      });
-    } else {
-      setPostData({
-        ...postData,
-        content: value,
-      });
+      }));
     }
   };
-
   const handleChangeImages = (event) => {
     if (event.target.files.length) {
       const selectedImages = Array.from(event.target.files);

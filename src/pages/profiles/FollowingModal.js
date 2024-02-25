@@ -1,21 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { axiosReq } from "../../api/axiosDefaults"; // Import your custom axios instance
 import { useProfileData } from "../../contexts/ProfileDataContext";
 import Styles from "../../styles/FollowingModal.module.css";
 
-
-
-const FollowingModal = ({ show, handleClose, followingList }) => {
-    const currentUser = useCurrentUser();
+const FollowingModal = ({ show, handleClose }) => {
     const { pageProfile } = useProfileData();
-
     const profileOwner = pageProfile.results[0]?.owner || "";
 
-    const filteredFollowers = followingList
-        .filter((follower) => follower.owner === profileOwner)
-        .map((follower) => follower.followed_name);
+    const [filteredFollowers, setFilteredFollowers] = useState([]);
+
+    const fetchFollowers = async (url, accumulatedFollowers = []) => {
+        try {
+            const response = await axiosReq.get(url);
+            const updatedFollowers = response.data.results
+                .filter((follower) => follower.owner === profileOwner)
+                .map((follower) => follower.followed_name);
+
+            const newAccumulatedFollowers = [...accumulatedFollowers, ...updatedFollowers];
+
+            setFilteredFollowers(newAccumulatedFollowers);
+
+            if (response.data.next) {
+                // If there is a next page, recursively fetch more followers
+                await fetchFollowers(response.data.next, newAccumulatedFollowers);
+            }
+        } catch (error) {
+            console.error("Error fetching followers:", error);
+        }
+    };
+
+    useEffect(() => {
+        if (show) {
+            const initialUrl = "/followers/"; // Update the endpoint
+            fetchFollowers(initialUrl);
+        }
+    }, [profileOwner, show]);
 
     return (
         <Modal show={show} onHide={handleClose} className={Styles.followingModal}>
@@ -24,8 +45,8 @@ const FollowingModal = ({ show, handleClose, followingList }) => {
             </Modal.Header>
             <Modal.Body className={Styles.modalBody}>
                 {filteredFollowers.length > 0 ? (
-                    filteredFollowers.map((follower) => (
-                        <div key={follower}>{follower}</div>
+                    filteredFollowers.map((follower, index) => (
+                        <div key={index}>{follower}</div>
                     ))
                 ) : (
                     <div>No followers found.</div>
@@ -41,4 +62,3 @@ const FollowingModal = ({ show, handleClose, followingList }) => {
 };
 
 export default FollowingModal;
-

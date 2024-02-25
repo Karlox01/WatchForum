@@ -86,9 +86,33 @@
 }
 
 .commentbox img {
-    max-width: 350px; /* Set the maximum width for images within the comment box */
-    max-height: 350px; /* Set the maximum height for images within the comment box */
-    object-fit: contain; /* Ensure the image is contained within its box without being cut */
-    display: block; /* Ensure images don't overflow outside the comment box */
-    margin: auto; /* Center the images horizontally within the comment box */
-  }
+    max-width: 350px;
+    /* Set the maximum width for images within the comment box */
+    max-height: 350px;
+    /* Set the maximum height for images within the comment box */
+    object-fit: contain;
+    /* Ensure the image is contained within its box without being cut */
+    display: block;
+    /* Ensure images don't overflow outside the comment box */
+    margin: auto;
+    /* Center the images horizontally within the comment box */
+}
+
+
+@media (max-width: 767px) {
+    .commentbox {
+        padding-left: 20px;
+        /* Adjust the left padding for mobile */
+        padding-right: 20px;
+        /* Optional: Adjust the right padding for mobile */
+        text-align: left;
+        /* Align text to the left on mobile devices */
+    }
+
+    .commentbox img {
+        max-width: 100%;
+        /* Ensure images take full width on mobile */
+        height: auto;
+        /* Maintain the aspect ratio of images on mobile */
+    }
+}

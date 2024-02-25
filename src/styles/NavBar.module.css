@@ -8,13 +8,21 @@
 .NavLinks {
     color: #DAA520;
     font-weight: 100;
-    padding: 5px;
+    /* padding-bottom: 25px; */
     text-decoration: none;
 }
 
 
 .NavLinks:hover {
     color: #DAA520;
+}
+
+.Post {
+    color: #DAA520;
+    font-weight: 100;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 14px;
 }
 
 .FasLinks {
@@ -66,8 +74,8 @@
         align-items: center;
     }
 
-    .NavLinks {
+    /* .NavLinks {
         margin-bottom: 10px;
         
-    }
+    } */
 }
