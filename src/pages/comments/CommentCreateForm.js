@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
-import Comment from './Comment';
 import styles from '../../styles/CommentCreateEditForm.module.css';
 import appStyles from '../../App.module.css';
 import btnStyles from '../../styles/Button.module.css';
@@ -13,7 +12,7 @@ import { useHistory } from 'react-router';
 import { axiosRes } from '../../api/axiosDefaults';
 
 function CommentCreateForm(props) {
-  const { post, setPost, setComments, profileImage, profile_id, images: initialImages } = props;
+  const { post, setPost, setComments, images: initialImages } = props;
   const [content, setContent] = useState("");
   const [images, setImages] = useState(initialImages || []);
   const [errors, setErrors] = useState({});

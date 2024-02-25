@@ -78,7 +78,7 @@ const Comment = (props) => {
                 {images && images.length > 0 && (
                   <div className={styles.commentImages}>
                     {images.map((image) => (
-                      <img key={image.id} src={image.image} alt={`comment-${id}-image`} className={styles.commentImage} />
+                      <img key={image.id} src={image.image} alt={`comment-${id}`} className={styles.commentImage} />
                     ))}
                   </div>
                 )}</p>

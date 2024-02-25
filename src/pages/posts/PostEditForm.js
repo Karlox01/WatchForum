@@ -67,6 +67,8 @@ function PostEditForm() {
   const handleChangeImages = (event) => {
     if (event.target.files.length) {
       const selectedImages = Array.from(event.target.files);
+      console.log('Selected Images:', selectedImages);
+
       setPostData({
         ...postData,
         images: selectedImages,
@@ -125,10 +127,10 @@ function PostEditForm() {
     for (let i = 0; i < images.length; i++) {
       if (images[i] instanceof File) {
         // If it's a File instance, append it to the formData
-        formData.append(`images`, images[i]);
+        formData.append('images', images[i]);
       } else {
         // If it's a string (image URL), add it as a string parameter
-        formData.append(`images_urls`, images[i]);
+        formData.append('images_urls', images[i]);
       }
     }
 
