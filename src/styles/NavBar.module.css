@@ -1,3 +1,4 @@
+/* NavBar styling */
 .NavBar {
     background-color: #301934;
     border: 1px solid gold;
@@ -5,18 +6,55 @@
     width: 100%;
 }
 
-.NavLinks {
-    color: #DAA520;
-    font-weight: 100;
-    /* padding-bottom: 25px; */
-    text-decoration: none;
+.TooltipContainer {
+    position: relative;
+    display: inline-block;
+}
+
+.TooltipText {
+    display: inline-block;
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #DAA520; 
+    color: #301934;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    padding: 10px; 
+    font-weight: 600;
 }
 
 
+/* Brand name styling */
+.brand {
+    color: #DAA520;
+    font-size: 25px;
+}
+
+/* Forum text styling */
+.forum {
+    color: #DAA520;
+    font-size: 15px;
+    text-align: center;
+}
+
+/* Navigation links styling */
+.NavLinks {
+    color: #DAA520;
+    font-weight: 100;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* Hover effect on Navigation links */
 .NavLinks:hover {
     color: #DAA520;
 }
 
+/* Styling for 'Create a new Post' link */
 .Post {
     color: #DAA520;
     font-weight: 100;
@@ -25,47 +63,51 @@
     font-size: 14px;
 }
 
+/* Styling for Font Awesome icons in Navigation links */
 .FasLinks {
     margin-right: 10px;
-    font-size: 30px;
+    font-size: 40px;
 }
 
+/* Styling for Navbar dropdown toggle button */
 .NavBarDropDown {
     color: #DAA520;
     background-color: #DAA520;
 }
 
+/* Styling for centering the brand on larger screens */
 .centerBrand {
     display: flex;
     align-items: center;
-    width: 35%;
+    width: 15%;
     justify-content: flex-end;
+    color: #DAA520;
+    text-decoration: none;
 }
 
-.Active i,
+/* Styling for active Navigation links with gradient effect */
+/* .Active i,
 .NavLinks.Active {
     position: relative;
     display: inline-block;
     overflow: hidden;
-    /* Hide overflow content */
     color: #f8f8f8;
     background: linear-gradient(to right, transparent 50%, #f8f8f8 50%);
     background-size: 200% 100%;
     transition: background-position 2.5s ease, color 2.5s ease;
-}
+} */
 
-
+/* Media query for responsiveness */
 @media (max-width: 768px) {
+
+    /* Adjustments for smaller screens */
     .centerBrand {
         width: 100%;
-        /* Set width to 100% for smaller screens */
         justify-content: center;
-        /* Center the content on smaller screens */
     }
 
     .NavBar {
         font-size: 18px;
-        /* Decrease font size for smaller screens */
     }
 
     .Nav {
@@ -73,9 +115,4 @@
         flex-direction: column;
         align-items: center;
     }
-
-    /* .NavLinks {
-        margin-bottom: 10px;
-        
-    } */
 }

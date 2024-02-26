@@ -1,23 +1,32 @@
+/* Styling for Avatar component */
 .AvatarContainer {
     display: flex;
     align-items: center;
     margin-left: 10px;
+    /* Margin applied to the Avatar component container */
     text-align: center;
     justify-content: center;
-    
 }
 
+/* Styling for the circular avatar image in the Avatar component */
 .Avatar {
     border-radius: 50%;
-    margin-right: 8px;
+    /* margin-right: 8px; */
+    /* Optional margin if needed */
     object-fit: cover;
     text-decoration: none;
 }
 
+/* Styling for the text next to the avatar image in the Avatar component */
 .AvatarText {
     color: #DAA520;
     font-weight: 100;
-    text-decoration: none !important; /* Add !important to override any conflicting styles */
+    text-decoration: none !important;
+    /* Add !important to override any conflicting styles */
     margin-top: 3px;
-    
+    /* Adjusted margin for vertical alignment */
+    margin-right: 8px;
+    /* Optional margin if needed */
+    /* margin-left: 10px; */
+    /* Optional margin if needed */
 }

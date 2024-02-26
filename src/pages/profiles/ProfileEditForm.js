@@ -38,14 +38,16 @@ const ProfileEditForm = () => {
         const handleMount = async () => {
             if (currentUser?.profile_id?.toString() === id) {
                 try {
+                    // Fetch profile data for editing
                     const { data } = await axiosReq.get(`/profiles/${id}/`);
                     const { name, content, image } = data;
                     setProfileData({ name, content, image });
                 } catch (err) {
-  
+                    // Handle errors and redirect if necessary
                     history.push("/");
                 }
             } else {
+                // Redirect if the user is not authorized to edit this profile
                 history.push("/");
             }
         };
@@ -54,6 +56,7 @@ const ProfileEditForm = () => {
     }, [currentUser, history, id]);
 
     const handleChange = (event) => {
+        // Update profile data on input change
         setProfileData({
             ...profileData,
             [event.target.name]: event.target.value,
@@ -71,20 +74,25 @@ const ProfileEditForm = () => {
         }
 
         try {
+            // Make API call to update profile data
             const { data } = await axiosReq.put(`/profiles/${id}/`, formData);
+            // Update current user context with new profile data
             setCurrentUser((currentUser) => ({
                 ...currentUser,
                 profile_image: data.image,
+                profile_name: data.name,
             }));
+            // Redirect to previous page after successful update
             history.goBack();
         } catch (err) {
-
+            // Handle errors and update error state
             setErrors(err.response?.data);
         }
     };
 
     const textFields = (
         <>
+            {/* Bio Textarea */}
             <Form.Group>
                 <Form.Label>Bio</Form.Label>
                 <Form.Control
@@ -96,18 +104,38 @@ const ProfileEditForm = () => {
                 />
             </Form.Group>
 
+            {/* Full Name Input */}
+            <Form.Group>
+                <Form.Label>Full Name</Form.Label>
+                <Form.Control
+                    type="text"
+                    value={name}
+                    onChange={handleChange}
+                    name="name"
+                />
+            </Form.Group>
+            {/* Display name-related errors */}
+            {errors?.name?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
+
+            {/* Display content-related errors */}
             {errors?.content?.map((message, idx) => (
                 <Alert variant="warning" key={idx}>
                     {message}
                 </Alert>
             ))}
+            {/* Cancel Button */}
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Blue}`}
                 onClick={() => history.goBack()}
             >
                 cancel
             </Button>
-            <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+            {/* Save Button */}
+            <Button className={`m-4 ${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
                 save
             </Button>
         </>
@@ -118,31 +146,36 @@ const ProfileEditForm = () => {
             <Row>
                 <Col className="py-2 p-0 p-md-2 text-center" md={7} lg={6}>
                     <Container className={appStyles.Content}>
+                        {/* Profile Image and Change Image Button */}
                         <Form.Group>
                             {image && (
                                 <figure>
                                     <Image src={image} fluid />
                                 </figure>
                             )}
+                            {/* Display image-related errors */}
                             {errors?.image?.map((message, idx) => (
                                 <Alert variant="warning" key={idx}>
                                     {message}
                                 </Alert>
                             ))}
                             <div>
+                                {/* Button to trigger hidden file input for image upload */}
                                 <Form.Label
-                                    className={`${btnStyles.Button} ${btnStyles.Blue} btn my-auto`}
+                                    className={`m-4 ${btnStyles.Button} ${btnStyles.Blue} btn my-auto`}
                                     htmlFor="image-upload"
                                 >
-                                    Change the image
+                                    Change image
                                 </Form.Label>
                             </div>
+                            {/* Hidden file input for image upload */}
                             <Form.File
                                 id="image-upload"
                                 ref={imageFile}
                                 accept="image/*"
                                 onChange={(e) => {
                                     if (e.target.files.length) {
+                                        // Update profile image preview on file selection
                                         setProfileData({
                                             ...profileData,
                                             image: URL.createObjectURL(e.target.files[0]),
@@ -151,9 +184,11 @@ const ProfileEditForm = () => {
                                 }}
                             />
                         </Form.Group>
+                        {/* Render text fields for mobile view */}
                         <div className="d-md-none">{textFields}</div>
                     </Container>
                 </Col>
+                {/* Render text fields for desktop view */}
                 <Col md={5} lg={6} className="d-none d-md-block p-0 p-md-2 text-center">
                     <Container className={appStyles.Content}>{textFields}</Container>
                 </Col>

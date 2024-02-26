@@ -1,11 +1,11 @@
+// src/components/MoreDropdown.js
+
 import React from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import styles from "../styles/MoreDropdown.module.css"
 import { useHistory } from "react-router";
 
-
-// The forwardRef is important!!
-// Dropdown needs access to the DOM node in order to position the Menu
+// Custom component for ThreeDots icon in the Dropdown
 const ThreeDots = React.forwardRef(({ onClick }, ref) => (
     <i
         className="fas fa-regular fa-gears"
@@ -15,13 +15,15 @@ const ThreeDots = React.forwardRef(({ onClick }, ref) => (
             onClick(e);
         }}
     />
-
 ));
 
+// Component for the MoreDropdown used in various contexts
 export const MoreDropdown = ({ handleEdit, handleDelete }) => {
     return (
         <Dropdown className="ml-auto" drop="right">
+            {/* Custom ThreeDots icon */}
             <Dropdown.Toggle as={ThreeDots} />
+            {/* Dropdown menu with edit and delete options */}
             <Dropdown.Menu className="text-center">
                 <Dropdown.Item
                     className={styles.DropdownItem}
@@ -36,17 +38,19 @@ export const MoreDropdown = ({ handleEdit, handleDelete }) => {
                 >
                     <i className="fas fa-trash-alt" />
                 </Dropdown.Item>
-
             </Dropdown.Menu>
         </Dropdown>
     );
 };
 
+// Component for the ProfileEditDropdown used for profile-related options
 export function ProfileEditDropdown({ id }) {
     const history = useHistory();
     return (
         <Dropdown className={`ml-auto px-3 ${styles.Absolute}`} drop="left">
+            {/* Custom ThreeDots icon */}
             <Dropdown.Toggle as={ThreeDots} />
+            {/* Dropdown menu with profile-related options */}
             <Dropdown.Menu>
                 <Dropdown.Item
                     onClick={() => history.push(`/profiles/${id}/edit`)}

@@ -1,16 +1,20 @@
+// src/contexts/ProfileDataContext.js
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import { followHelper, unfollowHelper } from "../utils/utils";
 
+// Create context for profile data and its setter
 const ProfileDataContext = createContext();
 const SetProfileDataContext = createContext();
 
+// Custom hooks for using profile data and its setter
 export const useProfileData = () => useContext(ProfileDataContext);
 export const useSetProfileData = () => useContext(SetProfileDataContext);
 
+// Provider component to manage the state of profile data
 export const ProfileDataProvider = ({ children }) => {
-
     const [profileData, setProfileData] = useState({
         pageProfile: { results: [] },
         popularProfiles: { results: [] },
@@ -18,6 +22,7 @@ export const ProfileDataProvider = ({ children }) => {
 
     const currentUser = useCurrentUser();
 
+    // Function to handle follow action
     const handleFollow = async (clickedProfile) => {
         try {
             const { data } = await axiosRes.post("/followers/", {
@@ -39,10 +44,11 @@ export const ProfileDataProvider = ({ children }) => {
                 },
             }));
         } catch (err) {
-
+            // Handle error
         }
     };
 
+    // Function to handle unfollow action
     const handleUnfollow = async (clickedProfile) => {
         try {
             await axiosRes.delete(`/followers/${clickedProfile.following_id}/`);
@@ -62,10 +68,11 @@ export const ProfileDataProvider = ({ children }) => {
                 },
             }));
         } catch (err) {
-
+            // Handle error
         }
     };
 
+    // Fetch popular profiles on component mount
     useEffect(() => {
         const handleMount = async () => {
             try {
@@ -77,13 +84,14 @@ export const ProfileDataProvider = ({ children }) => {
                     popularProfiles: data,
                 }));
             } catch (err) {
-
+                // Handle error
             }
         };
 
         handleMount();
     }, [currentUser]);
 
+    // Provide profile data state and its setter to child components
     return (
         <ProfileDataContext.Provider value={profileData}>
             <SetProfileDataContext.Provider

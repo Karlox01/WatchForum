@@ -25,9 +25,9 @@ function PostEditForm() {
     images: [],
   });
   const { title, content, images } = postData;
-  const imageInput = useRef(null);
   const history = useHistory();
   const { id } = useParams();
+  const imageInput = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -53,7 +53,7 @@ function PostEditForm() {
           }
         }
       } catch (err) {
-
+        // Handle error
       }
     };
 
@@ -63,7 +63,7 @@ function PostEditForm() {
       // Cleanup function to set isMounted to false when component unmounts
       isMounted = false;
     };
-  }, [history, id])
+  }, [history, id]);
 
   const handleChange = (event) => {
     if (event?.target) {
@@ -73,10 +73,10 @@ function PostEditForm() {
       }));
     }
   };
+
   const handleChangeImages = (event) => {
     if (event.target.files.length) {
       const selectedImages = Array.from(event.target.files);
-      console.log('Selected Images:', selectedImages);
 
       setPostData({
         ...postData,
@@ -87,40 +87,29 @@ function PostEditForm() {
 
   const handleDeleteImage = async (index) => {
     try {
-      const updatedImages = [...images];
-
       // Get the deleted image from the array
-      const deletedImage = updatedImages[index];
-
-      console.log('Before deletion - Deleted Image:', deletedImage);
-
-      // Extract 'id' property from the deleted image
+      const deletedImage = images[index];
       const imageId = deletedImage.id;
 
       if (imageId) {
         const response = await axiosReq.delete(`/posts/${id}/delete-image/${imageId}/`);
-        console.log('Delete Image Response:', response);
-
         if (response.status === 204) {
-          console.log('Image deleted successfully');
 
-          // Remove the deleted image from the state
-          updatedImages.splice(index, 1);
-
-          console.log("Updated Images after deletion:", updatedImages);
+          // Remove the deleted image from the state using filter
+          const updatedImages = images.filter((_, i) => i !== index);
 
           setPostData((prevData) => ({
             ...prevData,
             images: updatedImages,
           }));
         } else {
-          console.error('Unexpected response status:', response.status);
+          
         }
       } else {
-        console.error("Invalid deleted image structure or missing image id");
+        
       }
     } catch (error) {
-      console.error("Error deleting image:", error);
+      
       // Handle error, show a message to the user, etc.
     }
   };
@@ -158,11 +147,37 @@ function PostEditForm() {
     imageInput.current.click();
   };
 
+  // Function to render each image with delete button
+  const renderImage = (image, index) => (
+    <div key={index} className={styles.CurrentImageContainer}>
+      {image instanceof File ? (
+        <Image
+          className={appStyles.Image}
+          src={URL.createObjectURL(image)}
+          rounded
+        />
+      ) : (
+        <Image
+          className={appStyles.Image}
+          src={image.image}  // Assuming 'image' is the URL in your API response
+          rounded
+        />
+      )}
+      <Button
+        className={`${btnStyles.Button} ${btnStyles.Danger}`}
+        onClick={() => handleDeleteImage(index)}
+      >
+        Delete Image
+      </Button>
+    </div>
+  );
+
   return (
     <Form onSubmit={handleSubmit}>
       <Container className={`${appStyles.Content} ${styles.Container}`}>
         <Row className="justify-content-center mt-4">
           <Col xs={12} md={8}>
+            {/* Title Input */}
             <Form.Group>
               <Form.Label>Title</Form.Label>
               <Form.Control
@@ -177,6 +192,7 @@ function PostEditForm() {
                 {message}
               </Alert>
             ))}
+            {/* Content Input (ReactQuill Editor) */}
             <Form.Group>
               <Form.Label>Content</Form.Label>
               <ReactQuill
@@ -208,31 +224,10 @@ function PostEditForm() {
         </Row>
         <Row className="justify-content-center mt-4">
           <Col xs={12} md={8} className="text-center">
+            {/* Display selected images with delete button or prompt to upload */}
             {images.length > 0 ? (
               <>
-                {images.map((image, index) => (
-                  <div key={index} className={styles.CurrentImageContainer}>
-                    {image instanceof File ? (
-                      <Image
-                        className={appStyles.Image}
-                        src={URL.createObjectURL(image)}
-                        rounded
-                      />
-                    ) : (
-                      <Image
-                        className={appStyles.Image}
-                        src={image.image}  // Assuming 'image' is the URL in your API response
-                        rounded
-                      />
-                    )}
-                    <Button
-                      className={`${btnStyles.Button} ${btnStyles.Danger}`}
-                      onClick={() => handleDeleteImage(index)}
-                    >
-                      Delete Image
-                    </Button>
-                  </div>
-                ))}
+                {images.map(renderImage)}
               </>
             ) : (
               <Button
@@ -242,6 +237,7 @@ function PostEditForm() {
                 Add More Images
               </Button>
             )}
+            {/* File input for images */}
             <Form.File
               id="image-upload"
               accept="image/*"
@@ -259,6 +255,7 @@ function PostEditForm() {
         </Row>
         <Row className="justify-content-center mt-4">
           <Col xs={12} md={8} className="text-center">
+            {/* Cancel and Submit buttons */}
             <Button
               className={`${btnStyles.Button} ${btnStyles.Bright}`}
               onClick={() => history.goBack()}

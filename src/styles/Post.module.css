@@ -1,3 +1,4 @@
+/* Styling for the entire post container */
 .Post {
     background-color: #ffffff;
     border-bottom: 2px solid black !important;
@@ -7,8 +8,7 @@
     border: 0px;
 }
 
-
-
+/* Styling for the avatar details in the post */
 .AvatarDetails {
     text-decoration: none;
     color: black;
@@ -18,18 +18,22 @@
     margin: 0 !important;
 }
 
+/* Styling for the heart icon when post is liked */
 .Heart {
     color: #f85032;
 }
 
+/* Hover effect for the heart icon */
 .Heart:hover {
     color: #2142b2;
 }
 
+/* Hover effect for the heart outline icon (unliked) */
 .HeartOutline:hover {
     color: #f85032;
 }
 
+/* Styling for images within the post */
 .PostImage {
     max-width: 100%;
     height: auto;
@@ -37,27 +41,25 @@
     display: block;
 }
 
+/* Styling for the post title link */
 .PostTitleLink {
     display: block;
-    /* Use flexbox */
     text-align: center;
     color: black;
     text-decoration: none;
 }
 
-
+/* Styling for the post title link when in full post view */
 .PostTitleLinkOnPost {
     display: flex;
-    /* Use flexbox */
     align-items: center;
-    /* Center items vertically */
     justify-content: center;
-    /* Space between items (for Card.Title and MoreDropdown) */
     text-align: center;
     color: black;
     text-decoration: none;
 }
 
+/* Styling for the link within the post title */
 .PostLink {
     text-align: center;
     color: black;
@@ -65,28 +67,33 @@
     font-size: 35px;
 }
 
+/* Styling for the link within the post title when in full post view */
 .PostLinkOnPost {
     text-decoration: none;
     flex: 0 0 90%;
 }
 
+/* Styling for the avatar link within the post */
 .AvatarLink {
     text-decoration: none;
 }
 
+/* Styling for the post bar containing like and comment icons */
 .PostBar {
     margin-top: 10px;
 }
 
+/* Styling for like and comment icons */
 .LikeIcon {
     cursor: pointer;
 }
 
+/* Hover effect for like and comment icons */
 .LikeIcon:hover {
     color: #2142b2;
 }
 
-/* Additional properties for the title */
+/* Additional properties for the post title */
 .Title {
     padding: 8px;
     margin-bottom: 8px;
@@ -100,22 +107,21 @@
     text-transform: uppercase;
 }
 
-
+/* Styling for the content container within the post */
 .ContentContainer {
     padding: 16px;
 }
 
+/* Styling for the main content within the post */
 .Content {
     min-height: 300px;
     background-color: rgba(193, 193, 197, 0.2);
     text-align: left;
     border-radius: 10px;
     padding: 26px;
-
 }
 
-/* Use a more specific selector for the nested content */
+/* Styling for nested elements within the content container */
 .ContentContainer>* {
-    font-family: 'Times New Roman', Times, serif;
-
+    /* Additional styling for nested elements */
 }

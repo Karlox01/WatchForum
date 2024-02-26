@@ -1,20 +1,27 @@
 /* SignInUpForm.module.css */
 
+/* Styling for the row containing the form */
 .Row {
     height: calc(100vh - 81px);
 }
 
+/* Styling for the main container */
 .Container {
     padding: 30px 10px;
     background: linear-gradient(to right, #301934 50%, transparent 50%);
-    overflow: hidden; /* Ensure gradient doesn't overflow */
-    position: relative; /* Add relative positioning */
+    overflow: hidden;
+    /* Ensure gradient doesn't overflow */
+    position: relative;
+    /* Add relative positioning */
 }
 
+/* Styling for form groups within the form */
 .FormGroup {
-    margin-bottom: 15px; /* Adjust the margin as needed */
+    margin-bottom: 15px;
+    /* Adjust the margin as needed */
 }
 
+/* Styling for the form header */
 .Header {
     font-style: normal;
     font-weight: bold;
@@ -23,21 +30,28 @@
     text-align: center;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #DAA520; /* Adjusted color */
+    color: #DAA520;
+    /* Adjusted color */
     position: relative;
-    z-index: 1; /* Ensures the text stays above the gradient */
+    z-index: 1;
+    /* Ensures the text stays above the gradient */
 }
 
+/* Pseudo-elements for the gradient background behind the header */
 .Header::before,
 .Header::after {
     content: "";
     position: absolute;
     height: 100%;
-    width: 50%; /* Adjusted width */
-    background: #301934; /* Adjusted color */
-    z-index: -1; /* Puts the pseudo-elements behind the text */
+    width: 50%;
+    /* Adjusted width */
+    background: #301934;
+    /* Adjusted color */
+    z-index: -1;
+    /* Puts the pseudo-elements behind the text */
 }
 
+/* Styling for the form inputs */
 .Input {
     background: #301934;
     border: 1px solid #DAA520;
@@ -50,6 +64,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+/* Styling for the placeholder text within the input */
 .Input::placeholder {
     color: #DAA520;
     opacity: 0.7;
@@ -61,6 +76,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+/* Pseudo-elements for the gradient background behind the header */
 .Header::before {
     top: 0;
     left: 0;
@@ -71,6 +87,7 @@
     right: 0;
 }
 
+/* Styling for links within the form */
 .Link {
     text-decoration: none;
     text-align: center;
@@ -78,36 +95,49 @@
     margin: auto;
 }
 
+/* Styling for the span within the link */
 .Link span {
     display: inline-block;
-    font-size: 30px; /* Adjusted font size to match the button */
-    padding: 0 5px; /* Adjusted padding for a more prominent button */
+    font-size: 30px;
+    /* Adjusted font size to match the button */
+    padding: 0 5px;
+    /* Adjusted padding for a more prominent button */
     margin-left: 5px;
     margin-right: 2px;
-    min-width: 20px; /* Adjusted minimum width */
-    color: #DAA520; /* Adjusted text color to match the navbar */
+    min-width: 20px;
+    /* Adjusted minimum width */
+    color: #DAA520;
+    /* Adjusted text color to match the navbar */
     text-align: center;
 }
 
+/* Styling for the span within the link on hover */
 .Link span:hover {
     opacity: 0.8;
     cursor: pointer;
 }
 
+/* Styling for the span within the link on active */
 .Link span:active {
-    background-color: #2ed9ff; /* Adjusted active color */
+    background-color: #2ed9ff;
+    /* Adjusted active color */
     border-color: transparent;
 }
 
+/* Styling for the span within the link on focus */
 .Link span:focus {
-    background-color: #2ed9ff; /* Adjusted focus color */
-    outline: none; /* Remove default focus outline */
+    background-color: #2ed9ff;
+    /* Adjusted focus color */
+    outline: none;
+    /* Remove default focus outline */
 }
 
+/* Styling for the image section in the SignInCol */
 .SignInCol {
     height: 320px;
 }
 
+/* Styling for the image section in the SignUpCol */
 .SignUpCol {
     height: 375px;
 }

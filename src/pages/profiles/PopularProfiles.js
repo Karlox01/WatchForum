@@ -6,6 +6,7 @@ import { useProfileData } from "../../contexts/ProfileDataContext";
 import Profile from "./Profile";
 
 const PopularProfiles = ({ mobile }) => {
+  // Access popular profiles data from the context
   const { popularProfiles } = useProfileData();
 
   return (
@@ -14,6 +15,7 @@ const PopularProfiles = ({ mobile }) => {
         <>
           <p className="text-center">Most followed profiles.</p>
           {mobile ? (
+            // Render an accordion for mobile view
             <Accordion>
               <Card>
                 <Card.Header>
@@ -25,6 +27,7 @@ const PopularProfiles = ({ mobile }) => {
                   <Card.Body>
                     <Col>
                       {popularProfiles.results.slice(0, 6).map((profile) => (
+                        // Render profiles for mobile view
                         <Profile key={profile.id} profile={profile} mobile />
                       ))}
                     </Col>
@@ -33,12 +36,14 @@ const PopularProfiles = ({ mobile }) => {
               </Card>
             </Accordion>
           ) : (
+            // Render profiles for desktop view
             popularProfiles.results.map((profile) => (
               <Profile key={profile.id} profile={profile} />
             ))
           )}
         </>
       ) : (
+        // Render a spinner if no popular profiles found
         <Asset spinner />
       )}
     </Container>

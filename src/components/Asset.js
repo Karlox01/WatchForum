@@ -1,7 +1,10 @@
+// src/components/Asset.js
+
 import React from "react";
 import { Spinner } from "react-bootstrap";
 import styles from "../styles/Asset.module.css";
 
+// Asset component for displaying various types of content (spinner, image, message)
 const Asset = ({ spinner, src, message }) => {
     return (
         <div className={`${styles.Asset} p-4`}>
@@ -12,4 +15,4 @@ const Asset = ({ spinner, src, message }) => {
     );
 };
 
-export default Asset;
+export default Asset;  // Export the Asset component

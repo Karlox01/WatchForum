@@ -9,6 +9,7 @@ import { MoreDropdown } from '../../components/MoreDropdown';
 import ReactHtmlParser from 'react-html-parser';
 import { useHistory, Link } from 'react-router-dom';
 
+// Function to truncate content to the first n words
 const truncate = (text, wordsCount) => {
   const words = text.split(' ');
   const truncatedWords = words.slice(0, wordsCount);
@@ -35,19 +36,22 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
 
+  // Redirect to edit post page
   const handleEdit = () => {
     history.push(`/posts/${id}/edit`);
   };
 
+  // Delete post
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/posts/${id}/`);
       history.goBack();
     } catch (err) {
-
+      // Handle errors if necessary
     }
   };
 
+  // Like a post
   const handleLike = async () => {
     try {
       const { data } = await axiosRes.post('/likes/', { post: id });
@@ -60,10 +64,11 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
         }),
       }));
     } catch (err) {
-
+      // Handle errors if necessary
     }
   };
 
+  // Unlike a post
   const handleUnlike = async () => {
     try {
       await axiosRes.delete(`/likes/${like_id}/`);
@@ -76,7 +81,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
         }),
       }));
     } catch (err) {
-
+      // Handle errors if necessary
     }
   };
 
@@ -88,7 +93,8 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
       <Row>
         <Col xs={12} md={2} className="pt-2">
           <Link to={`/profiles/${profile_id}`} className={styles.AvatarLink}>
-            <Avatar src={profile_image} height={125} />
+            <Avatar src={profile_image} height={75} width={75} />
+            <hr />
             <div className={styles.AvatarDetails}>
               <span> Topic started by</span>
               <div className={ownerstyle.Owner}>{owner}</div>
@@ -100,6 +106,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
         <Col xs={12} md={10}>
           <Card.Body>
             {titleOnly ? (
+              // Display for title only
               <div className={styles.PostTitleLink}>
                 <Card.Title className={`text-center ${styles.Title}`}>
                   <Link to={`/posts/${id}`} className={styles.PostLink}>
@@ -108,6 +115,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                 </Card.Title>
                 <span className={styles.TruncatedContent}>{ReactHtmlParser(truncatedContent)}</span>
                 <div className={styles.PostBar}>
+                  {/* Like button */}
                   {is_owner ? (
                     <OverlayTrigger
                       placement="top"
@@ -132,6 +140,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                     </OverlayTrigger>
                   )}
                   {likes_count}
+                  {/* Comment count */}
                   <span className={styles.LikeIcon}>
                     <i className={`far fa-comments ${styles.LikeIcon}`} />
                     {comments_count}
@@ -139,22 +148,28 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                 </div>
               </div>
             ) : (
+              // Display for full post
               <>
                 <div className={styles.PostTitleLinkOnPost}>
+                  {/* Link to full post */}
                   <Link to={`/posts/${id}`} className={styles.PostLinkOnPost}>
                     <Card.Title className={`text-center ${styles.Title}`}>{title}</Card.Title>
                   </Link>
+                  {/* More options dropdown for post owner */}
                   {is_owner && (
                     <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
                   )}
                 </div>
+                {/* Post content */}
                 <div className={`${styles.ContentContainer} ${styles.Content}`}>
                   {content && ReactHtmlParser(content)}
+                  {/* Display post images if present */}
                   {images && images.length > 0 && (
                     <div>
                       <Row>
                         {images.map((image, index) => (
                           <Col key={index} xs={12} md={6} lg={4}>
+                            {/* Link to full post with image */}
                             <Link to={`/posts/${id}`} className={styles.ImageLink}>
                               <Card.Img
                                 src={image.image}
@@ -168,8 +183,9 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                     </div>
                   )}
                 </div>
-
+                {/* Like and Comment bar */}
                 <div className={styles.PostBar}>
+                  {/* Like button */}
                   {is_owner ? (
                     <OverlayTrigger
                       placement="top"
@@ -194,6 +210,7 @@ const Post = ({ titleOnly, setPosts, ...props }) => {
                     </OverlayTrigger>
                   )}
                   {likes_count}
+                  {/* Comment count */}
                   <span className={styles.LikeIcon}>
                     <i className={`far fa-comments ${styles.LikeIcon}`} />
                     {comments_count}

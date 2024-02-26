@@ -1,3 +1,5 @@
+// src/pages/auth/SignInForm.js
+
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
@@ -11,13 +13,13 @@ import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserCon
 import { useRedirect } from "../../hooks/useRedirect";
 import { setTokenTimestamp } from "../../utils/utils";
 
+// Component for the Sign In form
 const SignInForm = () => {
     const setCurrentUser = useSetCurrentUser();
     const currentUser = useCurrentUser();
 
     // Use the redirect hook conditionally
     useRedirect(currentUser ? "loggedIn" : null);
-
 
     const [signInData, setSignInData] = useState({
         username: "",
@@ -30,19 +32,25 @@ const SignInForm = () => {
     const [errors, setErrors] = useState({});
     const history = useHistory();
 
+    // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
+            // Attempt to log in
             const { data } = await axios.post("/dj-rest-auth/login/", signInData);
-            setCurrentUser(data.user)
-            setTokenTimestamp(data)
+
+            // Update current user and token timestamp
+            setCurrentUser(data.user);
+            setTokenTimestamp(data);
             history.goBack();
         } catch (err) {
+            // Handle login errors
             setErrors(err.response?.data);
         }
     };
 
+    // Handle form input changes
     const handleChange = (event) => {
         setSignInData({
             ...signInData,
@@ -57,6 +65,7 @@ const SignInForm = () => {
                     <h1 className={`${styles.Header} ${appStyles.NavLinks}`}>Sign In</h1>
 
                     <Form onSubmit={handleSubmit}>
+                        {/* Username Input */}
                         <Form.Group controlId="username" className={`${styles.FormGroup}`}>
                             <Form.Label>- USERNAME -</Form.Label>
                             <Form.Control
@@ -68,12 +77,14 @@ const SignInForm = () => {
                                 onChange={handleChange}
                             />
                         </Form.Group>
+                        {/* Display username errors, if any */}
                         {errors.username?.map((message, idx) => (
                             <Alert key={idx} variant="warning">
                                 {message}
                             </Alert>
                         ))}
 
+                        {/* Password Input */}
                         <Form.Group controlId="password" className={`${styles.FormGroup}`}>
                             <Form.Label>- Password -</Form.Label>
                             <Form.Control
@@ -85,11 +96,13 @@ const SignInForm = () => {
                                 onChange={handleChange}
                             />
                         </Form.Group>
+                        {/* Display password errors, if any */}
                         {errors.password?.map((message, idx) => (
                             <Alert key={idx} variant="warning">
                                 {message}
                             </Alert>
                         ))}
+                        {/* Checkbox to show/hide password */}
                         <Form.Group controlId="showPassword" className={`${styles.FormGroup} text-center`}>
                             <Form.Check
                                 type="checkbox"
@@ -99,7 +112,7 @@ const SignInForm = () => {
                             />
                         </Form.Group>
 
-
+                        {/* Sign In Button */}
                         <Button
                             className={`${btnStyles.Button} ${styles.Wide} ${btnStyles.Bright} mt-3`}
                             variant="primary"
@@ -107,24 +120,23 @@ const SignInForm = () => {
                         >
                             Sign In
                         </Button>
+                        {/* Display non-field errors, if any */}
                         {errors.non_field_errors?.map((message, idx) => (
                             <Alert key={idx} variant="warning" className="mt-3">
                                 {message}
                             </Alert>
                         ))}
                     </Form>
-
                 </Container>
+                {/* Link to Sign Up page */}
                 <Container className={`mt-3 ${appStyles.Content}`}>
                     <Link className={`${styles.Link} ${appStyles.NavLinks}`} to="/signup">
                         Don't have an account? <span>Sign up now!</span>
                     </Link>
                 </Container>
             </Col>
-            <Col
-                md={6}
-                className={`my-auto d-none d-md-block p-2 ${styles.SignInCol}`}
-            >
+            {/* Image Section */}
+            <Col md={6} className={`my-auto d-none d-md-block p-2 ${styles.SignInCol}`}>
                 <Image
                     className={`${appStyles.FillerImage}`}
                     src={

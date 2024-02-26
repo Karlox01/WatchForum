@@ -21,12 +21,13 @@ function PostCreateForm() {
     const [postData, setPostData] = useState({
         title: "",
         content: "",
-        images: [], 
+        images: [],
     });
     const { title, content, images } = postData;
     const imageInput = useRef(null);
     const history = useHistory();
 
+    // Function to handle changes in input fields
     const handleChange = (event, value) => {
         if (event && event.target && event.target.name) {
             // Regular input change
@@ -43,6 +44,7 @@ function PostCreateForm() {
         }
     };
 
+    // Function to handle image input change
     const handleChangeImages = (event) => {
         if (event.target.files.length) {
             const selectedImages = Array.from(event.target.files);
@@ -53,6 +55,7 @@ function PostCreateForm() {
         }
     };
 
+    // Function to handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
@@ -75,6 +78,7 @@ function PostCreateForm() {
         }
     };
 
+    // Function to open file input on button click
     const openFileInput = () => {
         imageInput.current.click();
     };
@@ -84,6 +88,7 @@ function PostCreateForm() {
             <Container className={`${appStyles.Content} ${styles.Container}`}>
                 <Row className="justify-content-center mt-4">
                     <Col xs={12} md={8}>
+                        {/* Title Input */}
                         <Form.Group>
                             <Form.Label>Title</Form.Label>
                             <Form.Control
@@ -98,6 +103,7 @@ function PostCreateForm() {
                                 {message}
                             </Alert>
                         ))}
+                        {/* Content Input (ReactQuill Editor) */}
                         <Form.Group>
                             <Form.Label>Content</Form.Label>
                             <ReactQuill
@@ -129,6 +135,7 @@ function PostCreateForm() {
                 </Row>
                 <Row className="justify-content-center mt-4">
                     <Col xs={12} md={8} className="text-center">
+                        {/* Display selected images or prompt to upload */}
                         {images.length > 0 ? (
                             <>
                                 {images.map((image, index) => (
@@ -145,6 +152,7 @@ function PostCreateForm() {
                                 Upload Images
                             </Button>
                         )}
+                        {/* File input for images */}
                         <Form.File
                             id="image-upload"
                             accept="image/*"
@@ -162,6 +170,7 @@ function PostCreateForm() {
                 </Row>
                 <Row className="justify-content-center mt-4">
                     <Col xs={12} md={8} className="text-center">
+                        {/* Cancel and Submit buttons */}
                         <Button
                             className={`${btnStyles.Button} ${btnStyles.Bright}`}
                             onClick={() => history.goBack()}
