@@ -135,7 +135,7 @@ function PostCreateForm() {
                         ))}
                     </Col>
                 </Row>
-                <Row className="justify-content-center mt-4">
+                <Row className="justify-content-center mt-5">
                     <Col xs={12} md={8} className="text-center">
                         {/* Display selected images or prompt to upload */}
                         {images.length > 0 ? (
