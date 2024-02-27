@@ -96,6 +96,8 @@ function PostCreateForm() {
                                 name="title"
                                 value={title}
                                 onChange={(e) => handleChange(e)}
+                                data-testid="post-title-input"
+                                aria-label="Title Input"
                             />
                         </Form.Group>
                         {errors?.title?.map((message, idx) => (
@@ -104,7 +106,7 @@ function PostCreateForm() {
                             </Alert>
                         ))}
                         {/* Content Input (ReactQuill Editor) */}
-                        <Form.Group>
+                        <Form.Group data-testid="content-editor">
                             <Form.Label>Content</Form.Label>
                             <ReactQuill
                                 className={appStyles.quill}
@@ -148,6 +150,7 @@ function PostCreateForm() {
                             <Button
                                 className={`${btnStyles.Button} ${btnStyles.Bright}`}
                                 onClick={openFileInput}
+                                aria-label="Upload Images Button"
                             >
                                 Upload Images
                             </Button>
@@ -160,6 +163,7 @@ function PostCreateForm() {
                             onChange={handleChangeImages}
                             ref={imageInput}
                             className="d-none"
+                            aria-label="Image Upload Input"
                         />
                         {errors?.images?.map((message, idx) => (
                             <Alert variant="warning" key={idx}>
@@ -174,12 +178,14 @@ function PostCreateForm() {
                         <Button
                             className={`${btnStyles.Button} ${btnStyles.Bright}`}
                             onClick={() => history.goBack()}
+                            aria-label="Cancel Button"
                         >
                             Cancel
                         </Button>
                         <Button
                             className={`${btnStyles.Button} ${btnStyles.Bright}`}
                             type="submit"
+                            aria-label="Create Button"
                         >
                             Create
                         </Button>

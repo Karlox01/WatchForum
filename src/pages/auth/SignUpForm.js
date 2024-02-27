@@ -120,7 +120,7 @@ const SignUpForm = () => {
 
                         {/* Disclaimer */}
                         <Form.Text className="text-muted">
-                            Disclaimer: Never share your password with anyone! Use a memorable but non-generic username.
+                            <div>Disclaimer: Never share your password with anyone! Use a memorable but non-generic username.</div>
                         </Form.Text>
 
                         {/* Submit Button */}

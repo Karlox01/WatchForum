@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.8.3",
     "acorn": "^8.11.3",
     "axios": "^0.21.4",
+    "axios-mock-adapter": "^1.22.0",
     "bootstrap": "^4.6.0",
     "heroku": "^8.10.0",
     "jquery": "^1.9.1",
