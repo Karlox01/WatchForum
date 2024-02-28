@@ -4,6 +4,11 @@
 
 **Description:** WatchForum is a Django-based web application focused on facilitating discussions about watches and timepieces. Inspired by the Code Institute's Moments template project, it serves as a platform for watch enthusiasts to engage in conversations, share insights, and explore the world of horology.
 
+
+POWERED BY WBK API - [ACCESS  IT HERE!](https://github.com/Karlox01/djangoAPI)
+
+![here](https://res.cloudinary.com/dzchfcdfl/image/upload/v1709081251/KARLO_API_uiwp9m.png)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -625,12 +630,9 @@ heroku create your-app-name
 
 Add a Node.js buildpack to your Heroku app:
 heroku buildpacks:set heroku/nodejs
-  
-Set environment variables if needed (e.g., for secret keys or configurations):
-heroku config:set KEY=VALUE
 
 Deploy your application to Heroku:
-git push heroku master
+git push heroku main
 
 Open your deployed application in the browser:
 heroku open
