@@ -61,22 +61,305 @@ WatchForum operates as a discussion-centric platform, dedicated to creating a vi
 ## Structure
 The architecture of WatchForum is crafted to ensure an intuitive and engaging user experience. This minimalistic and elegant design prioritizes simplicity while offering a seamless platform for users. Here's a breakdown of the key components:
 
+ 
 
-**Homepage** 
 
 
+# WatchForum - Version 43
+
+## Homepage and Core Features
 
 ![HomePage](https://res.cloudinary.com/dzchfcdfl/image/upload/v1709074927/HomePage_y27wwb.jpg)
-- The gateway to the WatchForum community, the homepage is crafted to provide a visually captivating and welcoming environment. Users are greeted with compelling visuals that draw them into the world of watches and timepieces. The design emphasizes a user-friendly interface to encourage exploration and interaction.
 
-- **Forums / Threaded Discussions**: The heart of WatchForum lies in its discussion forums. These forums are structured to facilitate meaningful conversations about various aspects of watches. To enhance user experience, I am currently working on implementing threaded discussions. This feature will make it easier for users to follow and participate in specific topics, creating a more organized and dynamic platform for watch enthusiasts.
+The homepage serves as the gateway to the WatchForum community, meticulously designed to offer a visually captivating and welcoming environment. Here's an overview of the core features:
 
-- **Messaging System (Planned)**: Scheduled for incorporation in late Winter 2024, the messaging system is a key feature aimed at enabling direct communication between users. This addition will make it possible for members to connect on a more personal level, share insights, and engage in private discussions, enhancing the sense of community within WatchForum.
+- **Forums / Threaded Discussions**: At the heart of WatchForum, our discussion forums provide a structured space for meaningful conversations about various aspects of watches. The ongoing efforts to implement threaded discussions aim to enhance user experience further. This feature will simplify users' ability to follow and participate in specific topics, fostering a more organized and dynamic platform for watch enthusiasts.
 
-- **User Dashboard (Future Expansion - Spring 2024)**: The user dashboard is a focal point for individuals to manage their discussions and interactions within WatchForum. While the current version provides essential functionalities, we plan to expand the user dashboard in Spring 2024. This expansion will introduce additional features and tools, empowering users to personalize their experience, track their contributions, and navigate the platform more efficiently.
+- **Post Creation Site**: The Post Creation Site is a pivotal element, empowering users to share their thoughts, insights, and experiences related to watches. This interactive space encourages users to contribute to the community, creating a diverse range of discussions and content.
 
-The structural design of WatchForum reflects our commitment to creating a platform that not only showcases the beauty of watches but also nurtures a vibrant community where enthusiasts can connect, share their passion, and explore the world of horology together.
+- **Messaging System (Planned)**: Set for incorporation in late Winter 2024, the messaging system is a significant upcoming feature. It is designed to enable direct communication between users, fostering a more personal level of connection. Members will be able to share insights, engage in private discussions, and build a stronger sense of community within WatchForum.
 
+- **User Dashboard (Future Expansion - Spring 2024)**: While the current version of the User Dashboard provides essential functionalities, we have ambitious plans for its expansion in Spring 2024. This expansion will introduce additional features and tools, allowing users to personalize their experience, track contributions, and navigate the platform more efficiently. This strategic enhancement aligns with our commitment to providing users with a robust and user-friendly environment.
+
+## Post Creation Site
+
+The Post Creation Site on WatchForum is where the community comes alive through user-generated content. This space empowers users to express their passion for watches by sharing thoughts, stories, and insights. The intuitive interface simplifies the process of creating engaging posts, contributing to the vibrant tapestry of discussions within the community.
+
+### Key Features:
+
+- **Rich Text Editor**: A user-friendly text editor enables users to format their posts with ease, making content creation a seamless experience.
+
+- **Media Upload**: Users can enrich their posts by uploading images, allowing them to visually showcase their watch collections, favorite timepieces, or any watch-related content.
+
+- **Topic Categorization**: Posts can be categorized into relevant topics, ensuring that discussions are organized and accessible to users interested in specific themes.
+
+## Profile Page
+
+The Profile Page on WatchForum serves as a personalized space for each user, reflecting their engagement, contributions, and preferences within the community. It's a dynamic representation of the user's journey and involvement in the world of watches.
+
+### Key Elements:
+
+- **User Information**: Displays essential details about the user, including their username, bio, and profile picture.
+
+- **Activity Feed**: A chronological feed showcasing the user's recent activities, such as posts, comments, and interactions within the community.
+
+- **Post History**: A curated collection of the user's past posts, allowing others to explore their contributions to the discussions.
+
+- **Follower/Following Metrics**: Provides insights into the user's network within WatchForum, highlighting their followers and those they follow.
+
+## Comment Page
+
+The Comment Page is the epicenter of interactive discussions on WatchForum. It facilitates engagement and dialogue among community members, allowing them to share opinions, ask questions, and contribute to the ongoing conversation.
+
+### Key Components:
+
+- **Threaded Comments**: Enhances the readability and organization of discussions by implementing threaded comments. Users can respond directly to specific comments, creating a more structured conversational flow.
+
+- **Reaction System**: Users can express their sentiments through a reaction system.
+
+- **Real-Time Updates (Resolved)**: Addressing previous challenges, real-time updates ensure that users receive instant notifications about new comments, fostering a more dynamic and responsive platform.
+
+
+
+
+### Design
+
+The website design prioritizes visual appeal and user experience.
+
+**Fonts**:
+- selected from Google Fonts ensure readability and aesthetics. These include Verdana, Bebas Neue, And a new personal favourite Kode Mono.
+- [Google Fonts](https://fonts.google.com/)
+
+
+![Kode](https://res.cloudinary.com/dzchfcdfl/image/upload/v1709077867/Kode_jjk0ls.jpg)
+
+- Color Scheme: The color scheme incorporates various shades to enhance visual appeal and readability.
+
+![Colors](https://res.cloudinary.com/dzchfcdfl/image/upload/v1709078204/Colors_h5qhjk.png)
+- Heavy use of Orangy and dark blue colors DAA520 / 2142b2
+
+## Reusable Components
+
+### Avatar Component
+
+In your project, you've implemented a reusable `Avatar` component that allows for the display of user avatars with optional text. This component is flexible, adjusting avatar dimensions based on whether it's viewed on a mobile device or a specified height. Below is an example of how it can be used:
+
+```jsx
+// Example Usage of Avatar Component
+import React from 'react';
+import Avatar from '../components/Avatar';
+
+const UserProfile = ({ user }) => {
+  return (
+    <div>
+      <h2>{user.username}</h2>
+      <Avatar src={user.avatarUrl} height={120} text="Watch Enthusiast" />
+      {/* Other user details and content */}
+    </div>
+  );
+};
+
+```
+
+User Context Components
+I have also implemented context components to manage the state of the current user and profile data. This allows for efficient handling of user-related functionalities across different parts of your application.
+
+CurrentUserProvider: Manages the state of the current user and handles token refresh.
+```
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import axios from "axios";
+import { axiosReq, axiosRes } from "../api/axiosDefaults";
+import { useHistory } from "react-router-dom";
+import { removeTokenTimestamp, shouldRefreshToken } from "../utils/utils";
+
+// Create context for current user and its setter
+export const CurrentUserContext = createContext();
+export const SetCurrentUserContext = createContext();
+
+// Custom hooks for using current user and its setter
+export const useCurrentUser = () => useContext(CurrentUserContext);
+export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
+
+// Provider component to manage the state of the current user
+export const CurrentUserProvider = ({ children }) => {
+    const [currentUser, setCurrentUser] = useState(null);
+    const history = useHistory();
+
+    // Function to fetch the current user on component mount
+    const handleMount = async () => {
+        try {
+            const { data } = await axiosRes.get("dj-rest-auth/user/");
+            setCurrentUser(data);
+        } catch (err) {
+            setCurrentUser(null);
+        }
+    };
+
+    useEffect(() => {
+        handleMount();
+    }, [history]);
+
+    // Intercept axios requests and responses to handle token refresh
+    useMemo(() => {
+        axiosReq.interceptors.request.use(
+            async (config) => {
+                if (shouldRefreshToken()) {
+                    try {
+                        await axios.post('/dj-rest-auth/token/refresh/');
+                    } catch (err) {
+                        setCurrentUser((prevCurrentUser) => {
+                            if (prevCurrentUser) {
+                                history.push('/signin');
+                            }
+                            return null;
+                        });
+                        removeTokenTimestamp();
+                        return config;
+                    }
+                }
+                return config;
+            },
+            (err) => {
+                return Promise.reject(err);
+            }
+        );
+
+        axiosRes.interceptors.response.use(
+            (response) => response,
+            async (err) => {
+                if (err.response?.status === 401) {
+                    try {
+                        await axios.post('/dj-rest-auth/token/refresh/');
+                    } catch {
+                        setCurrentUser((prevCurrentUser) => {
+                            if (prevCurrentUser) {
+                                history.push('/signin');
+                            }
+                            return null;
+                        });
+                        removeTokenTimestamp();
+                    }
+                    return axios(err.config);
+                }
+                return Promise.reject(err);
+            }
+        );
+    }, [history]);
+
+    // Provide the current user state and its setter to the child components
+    return (
+        <CurrentUserContext.Provider value={currentUser}>
+            <SetCurrentUserContext.Provider value={setCurrentUser}>
+                {children}
+            </SetCurrentUserContext.Provider>
+        </CurrentUserContext.Provider>
+    );
+};
+```
+ProfileDataProvider: Manages the state of profile data, including popular profiles and follow/unfollow actions.
+```
+ const handleFollow = async (clickedProfile) => {
+        try {
+            const { data } = await axiosRes.post("/followers/", {
+                followed: clickedProfile.id,
+            });
+
+            setProfileData((prevState) => ({
+                ...prevState,
+                pageProfile: {
+                    results: prevState.pageProfile.results.map((profile) =>
+                        followHelper(profile, clickedProfile, data.id)
+                    ),
+                },
+                popularProfiles: {
+                    ...prevState.popularProfiles,
+                    results: prevState.popularProfiles.results.map((profile) =>
+                        followHelper(profile, clickedProfile, data.id)
+                    ),
+                },
+            }));
+        } catch (err) {
+            // Handle error
+        }
+    };
+
+    // Function to handle unfollow action
+    const handleUnfollow = async (clickedProfile) => {
+        try {
+            await axiosRes.delete(`/followers/${clickedProfile.following_id}/`);
+
+            setProfileData((prevState) => ({
+                ...prevState,
+                pageProfile: {
+                    results: prevState.pageProfile.results.map((profile) =>
+                        unfollowHelper(profile, clickedProfile)
+                    ),
+                },
+                popularProfiles: {
+                    ...prevState.popularProfiles,
+                    results: prevState.popularProfiles.results.map((profile) =>
+                        unfollowHelper(profile, clickedProfile)
+                    ),
+                },
+            }));
+        } catch (err) {
+            // Handle error
+        }
+    };
+```
+These context components provide hooks (useCurrentUser, useSetCurrentUser, useProfileData, useSetProfileData) to easily access and modify user-related data within your application.
+
+#Handle Follow/Unfollow 
+
+``` const handleFollow = async (clickedProfile) => {
+        try {
+            const { data } = await axiosRes.post("/followers/", {
+                followed: clickedProfile.id,
+            });
+
+            setProfileData((prevState) => ({
+                ...prevState,
+                pageProfile: {
+                    results: prevState.pageProfile.results.map((profile) =>
+                        followHelper(profile, clickedProfile, data.id)
+                    ),
+                },
+                popularProfiles: {
+                    ...prevState.popularProfiles,
+                    results: prevState.popularProfiles.results.map((profile) =>
+                        followHelper(profile, clickedProfile, data.id)
+                    ),
+                },
+            }));
+        } catch (err) {
+            // Handle error
+        }
+    };
+
+    // Function to handle unfollow action
+    const handleUnfollow = async (clickedProfile) => {
+        try {
+            await axiosRes.delete(`/followers/${clickedProfile.following_id}/`);
+
+            setProfileData((prevState) => ({
+                ...prevState,
+                pageProfile: {
+                    results: prevState.pageProfile.results.map((profile) =>
+                        unfollowHelper(profile, clickedProfile)
+                    ),
+                },
+                popularProfiles: {
+                    ...prevState.popularProfiles,
+                    results: prevState.popularProfiles.results.map((profile) =>
+                        unfollowHelper(profile, clickedProfile)
+                    ),
+                },
+            }));
+        } catch (err) {
+            // Handle error
+        }
+    };
+```
 
 # ProfilesWithMostPosts Component
 
@@ -236,38 +519,7 @@ This component is incorporated into the WatchForum application to provide users 
 
 
 
-### Design
 
-The website design prioritizes visual appeal and user experience.
-
-**Color Scheme**:
-- The project adopts a color scheme with various shades, creating a visually pleasing environment for discussions.
-
-**Fonts**:
-- Fonts selected from Google Fonts ensure readability and aesthetics. These include Verdana and Bebas Neue.
-- [Google Fonts](https://fonts.google.com/)
-
-- Color Scheme: The color scheme incorporates various shades to enhance visual appeal and readability.
-- Heavy use of Orangy and dark blue colors DAA520 / 2142b2
-
-## Features
-
-### Homepage
-
-- **Main Screen**: Features captivating images and a welcoming slogan.
-
-
-- **Watch Selection**: Allows users to explore and engage in various watch-related discussions.
-
-
-
-### Messaging System - This is to be included, But due to a lack of time it was not featured in the deployed build/
-
-- **Communication**: Facilitates discussions between users.
-
-### User Dashboard
-
-- **Management**: Allows users to manage their discussions.
 
 ## Testing and Issues and SOLUTIONS!
 
@@ -387,6 +639,27 @@ heroku open
 
 
 Access the website at `(https://watchforumkarlo-1fa8fac8032c.herokuapp.com/)`.
+
+## Version Control and Commit History
+
+WatchForum has undergone continuous improvement, and currently at version 43 it reflects a series of iterative enhancements and optimizations. I have taken the feedback received into serious consideration and implemented a more frequent commit cadence with cohesive commit messages. This approach not only contributes to a more transparent development process but also facilitates easier tracking of changes and collaboration. 
+
+### Commit Messages
+
+The commit messages have now been expanded to provide clear and concise information about each change, making it easier for collaborators to understand the evolution of the project. The commitment to a more structured and informative commit history aligns with the best practices in software development.
+
+Here's a glimpse of the commit history:
+
+ **![Another Example Commit](https://res.cloudinary.com/dzchfcdfl/image/upload/v1709077678/Commits_pheox5.jpg)
+
+### Future Commitment
+
+The commitment to maintaining a detailed and comprehensible commit history remains an ongoing practice. Each commit aims to contribute positively to the project's evolution and readability. Your feedback and suggestions are always welcome as I strive to enhance the development and collaboration experience further.
+
+Thank you for being part of WatchForum's journey!
+
+## WatchForum - Version 43
+
 
 ## Credits
 
