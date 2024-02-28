@@ -5,7 +5,7 @@
 **Description:** WatchForum is a Django-based web application focused on facilitating discussions about watches and timepieces. Inspired by the Code Institute's Moments template project, it serves as a platform for watch enthusiasts to engage in conversations, share insights, and explore the world of horology.
 
 
-POWERED BY WBK API - [ACCESS  IT HERE!](https://github.com/Karlox01/djangoAPI)
+POWERED BY WBK API - [ACCESS Repo Here!](https://github.com/Karlox01/djangoAPI) [And Live Version Here](https://apifinalproject-bcabd5b820ec.herokuapp.com/)
 
 ![here](https://res.cloudinary.com/dzchfcdfl/image/upload/v1709081251/KARLO_API_uiwp9m.png)
 
