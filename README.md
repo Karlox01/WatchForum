@@ -75,11 +75,9 @@ The homepage serves as the gateway to the WatchForum community, meticulously des
 
 - **Forums / Threaded Discussions**: At the heart of WatchForum, our discussion forums provide a structured space for meaningful conversations about various aspects of watches. The ongoing efforts to implement threaded discussions aim to enhance user experience further. This feature will simplify users' ability to follow and participate in specific topics, fostering a more organized and dynamic platform for watch enthusiasts.
 
-- **Post Creation Site**: The Post Creation Site is a pivotal element, empowering users to share their thoughts, insights, and experiences related to watches. This interactive space encourages users to contribute to the community, creating a diverse range of discussions and content.
-
 - **Messaging System (Planned)**: Set for incorporation in late Winter 2024, the messaging system is a significant upcoming feature. It is designed to enable direct communication between users, fostering a more personal level of connection. Members will be able to share insights, engage in private discussions, and build a stronger sense of community within WatchForum.
 
-- **User Dashboard (Future Expansion - Spring 2024)**: While the current version of the User Dashboard provides essential functionalities, we have ambitious plans for its expansion in Spring 2024. This expansion will introduce additional features and tools, allowing users to personalize their experience, track contributions, and navigate the platform more efficiently. This strategic enhancement aligns with our commitment to providing users with a robust and user-friendly environment.
+- **User Dashboard (Future Expansion - Spring 2024)**: While the current version of the User Dashboard provides essential functionalities, I have ambitious plans for its expansion in Spring 2024. This expansion will introduce additional features and tools, allowing users to personalize their experience, track contributions, and navigate the platform more efficiently
 
 ## Post Creation Site
 
@@ -103,7 +101,7 @@ The Profile Page on WatchForum serves as a personalized space for each user, ref
 
 - **Activity Feed**: A chronological feed showcasing the user's recent activities, such as posts, comments, and interactions within the community.
 
-- **Post History**: A curated collection of the user's past posts, allowing others to explore their contributions to the discussions.
+- **Post History**: A collection of the user's past posts, allowing others to explore their contributions to the discussions.
 
 - **Follower/Following Metrics**: Provides insights into the user's network within WatchForum, highlighting their followers and those they follow.
 
